@@ -6,193 +6,255 @@ A PHP class library for the communication between your PHP application and the S
 Class: class.Api.PHP
 --------------------
 
-*Class that handles all the API calls*
+Handles all the API calls.
 
-`api()`
+### `api()`
+
 Constructor
 
-`getSessionId()`
+### `getSessionId()`
+
 Returns the session id if exists
 
-`setSessionId(Integer $sessionid)`
+### `setSessionId(Integer $sessionid)`
+
 Set the session id of a user. 
 
-`getErrorLog()`
+### `getErrorLog()`
+
 Returns the error log as a String. 
 
-`login($username, $password)`
-With this method a user can login with his username and md5 password hash. The function sets the needed session_id. This session_id is used for authentication. A user can be logged in on multiple locations. Returns true or false
+### `login($username, $password)`
 
-`oauthLogin($key, $secret)`
-With this method a user can login using oAuth. The function sets the needed session_id. This session_id is used for authentication at the oAuth authentication page.. Returns true or false
+With this method a user can login with his username and md5 password hash. The function sets the needed session ID. This session ID is used for authentication. A user can be logged in on multiple locations. Returns true or false
 
-`logout()`
+### `oauthLogin($key, $secret)`
+
+With this method a user can login using oAuth. The function sets the needed session ID. This session ID is used for authentication at the oAuth authentication page. Returns true or false
+
+### `logout()`
+
 This method will logout the user by destroying its session.
 
-`listDevices()`
-All the users devices that have sensors will be returned as list of `Device `objects
+### `listDevices()`
 
-`readDevice( Integer $id)`
-Returns the details of a device that has sensors as a `Device `object
+All the users devices that have sensors will be returned as list of `Device` objects
 
-`readDeviceSensors($id, $page, $perPage, $details)`
-Returns the sensors that are physically connected to the device as a list of `Sensor `objects
+### `readDevice( Integer $id)`
 
-`addEnvironment($name, $floors, $gps_outlines, $position)`
-This method creates a new environment. The gps_outline field should contain a list of latitude longitude points describing the outline of the environment.The list of points should create a polygon. The latitude longitude coordinates are separated by a space and each tuple by a comma. Optionally a third coordinate altitude can be specified after the longitude separated by a space. The gps_outline field can have 8000 characters. The position field should be the center of the environment which is also a gps point in the order latitude longitude altitude separated by spaces. The field floors indicates the amount of floors the environment has.
+Returns the details of a device that has sensors as a `Device` object
 
-`deleteEnvironment( $id)`
-This method deletes an environment.
+### `readDeviceSensors($id, $page, $perPage, $details)`
 
-`listEnvironments()`
-This method returns a list of `Environment `objects of the current user.
+Returns the sensors that are physically connected to the device as a list of `Sensor` objects
 
-`readEnvironment($id)`
-The method returns the details of the selected environment, as a `Environment `object 
+### `addEnvironment($name, $floors, $gps_outlines, $position)`
 
-`updateEnvironment($id, $name)`
-This method updates an environment. Only the fields that are send will be updated.
+This method creates a new environment. The `gps_outline` field should contain a list of latitude longitude points describing the outline of the environment. The list of points should create a polygon. The latitude longitude coordinates are separated by a space and each tuple by a comma. Optionally a third coordinate altitude can be specified after the longitude separated by a space. The `gps_outline` field can have 8000 characters. The position field should be the center of the environment which is also a gps point in the order latitude longitude altitude separated by spaces. The field floors indicates the amount of floors the environment has.
 
-`listGroups()`
-A list of groups will be returned where the current user is a member of. Returns a `Group` object
+### `deleteEnvironment( $id)`
 
-`createGroup($email, $name, $username, $password)`
-This method will create a group to which the current user will be added. A group can optionally have a username and password which can be used for login. The password must be in md5 format.
+Deletes an environment.
 
-`readGroup($id)`
-This method returns the details of a group. Only members of a group can see the details of a group. Returns a `Group` object
+### `listEnvironments()`
 
-`updateGroup($id, $email, $username, $password, $name)`
-This method will update the details of a group. Only the values specified as input will be updates. Every member of the group can update the group details
+Returns a list of `Environment` objects of the current user.
 
-`deleteGroup( $id)`
-This method deletes the group if the group has no other members. If the group has other members then the current user will be removed from the group.
+### `readEnvironment($id)`
 
-`listUsersOfGroup( $id)`
-This methods returns the members of the group as a list of `User `objects. Only group members can perform this action.
+Returns the details of the selected environment, as an `Environment`object 
 
-`addUserToGroup($id, $userID, $userName)`
-This method will add a user to the group. To add a user at least a username or user_id must be specified. Only members of the group can add a user to the group.
+### `updateEnvironment($id, $name)`
 
-`listSensors($page, $perPage, $sharred, $owned, $physical)`
-This method returns a list of `Sensor` objects to which the current user has access.
+Updates an environment. Only the fields that are sent will be updated.
 
-`createSensor($name, $displayName, $deviceType, $pagerType, $dataType, $dataStructure)`
-This method will create a new sensor. A sensor can optionally have a pager_type which can be 'email' or 'sms'. Based on the pager_type a message with the current sensor value will be send. The data_type of a sensor can either be a value type (e.g. float, string) or json. With a json data_type a data_structure that specifies the structure of the json object is expected.
+### `listGroups()`
 
-`readSensor($id)`
-This method will returns a `Sensor` object.
+Returns a list of groups that the current user is a member of. Returns a `Group` object
 
-`updateSensorDescription($id, $name, $displayName, $deviceType, $pagerType, $dataType, $dataStructure)`
-This method will update an existing sensor.
+### `createGroup($email, $name, $username, $password)`
 
-`deleteSensor($id)`
-This method will delete a sensor. If the current user is the owner of the sensor then the sensor will be removed from the current user and all other users. If the current user is not owner of the sensor then access to the sensor will be removed for this user.
+Creates a group to which the current user will be added. A group can optionally have a username and password which can be used for login. The password must be in md5 format.
 
-`listSensorData( $id, $page, $perPage, $startDate, $endDate, $date, $next, $last, $sort, $total)`
-This method will return a list of sensor data. The maximum amount of data points that can be retrieved at once are 1000 items.
+### `readGroup($id)`
 
-`updateSensorSpecificData( $id, $value, $date)`
-With this method sensor data can be uploaded. The uploaded data can either be a single value or an array.
+Returns the details of a group. Only members of a group can see the details of a group. Returns a `Group` object
 
-`deleteSensorData( $sensorID, $dataID)`
-This method deletes a data point
+### `updateGroup($id, $email, $username, $password, $name)`
 
-`getFileLocation( $sensorID, $dataID)`
+Updates the details of a group. Only the values specified as input will be updates. Every member of the group can update the group details
+
+### `deleteGroup( $id)`
+
+Deletes the group if the group has no other members. If the group has other members then the current user will be removed from the group.
+
+### `listUsersOfGroup( $id)`
+
+Returns the members of the group as a list of `User` objects. Only group members can perform this action.
+
+### `addUserToGroup($id, $userID, $userName)`
+
+Addd a user to the group. To add a user at least a username or user ID must be specified. Only members of the group can add a user to the group.
+
+### `listSensors($page, $perPage, $sharred, $owned, $physical)`
+
+Returns a list of `Sensor` objects to which the current user has access.
+
+### `createSensor($name, $displayName, $deviceType, $pagerType, $dataType, $dataStructure)`
+
+Creates a new sensor. A sensor can optionally have a pager type which can be `email` or `sms`. Based on the pager type, a message with the current sensor value will be sent. The data type of a sensor can either be a value type (e.g. `float`, `string`) or `json`. With a `json` data type, a data structure that specifies the structure of the JSON object is expected.
+
+### `readSensor($id)`
+
+Returns a `Sensor` object.
+
+### `updateSensorDescription($id, $name, $displayName, $deviceType, $pagerType, $dataType, $dataStructure)`
+
+Updates an existing sensor.
+
+### `deleteSensor($id)`
+
+Deletes a sensor. If the current user is the owner of the sensor then the sensor will be removed from the current user and all other users. If the current user is not owner of the sensor then access to the sensor will be removed for this user.
+
+### `listSensorData( $id, $page, $perPage, $startDate, $endDate, $date, $next, $last, $sort, $total)`
+
+Returns a list of sensor data. The maximum amount of data points that can be retrieved at once are 1000 items.
+
+### `updateSensorSpecificData( $id, $value, $date)`
+
+Uploads sensor data. The uploaded data can either be a single value or an array.
+
+### `deleteSensorData( $sensorID, $dataID)`
+
+Deletes a data point
+
+### `getFileLocation( $sensorID, $dataID)`
+
 The response header will contain a location header with the location of the file.
 
-`deleteFile( $sensorID, $dataID)`
-This method deletes the file that is uploaded and stored under the name given in this sensor data value.
+### `deleteFile( $sensorID, $dataID)`
 
-`deleteAllFiles()`
-This method deletes all the uploaded files of the user.
+Deletes the file that is uploaded and stored under the name given in this sensor data value.
 
-`uploadSensorData( $json)`
-With this method sensor data can be uploaded at once for different sensors. The uploaded data can either be a single value or an array.
+### `deleteAllFiles()`
 
-`readSensorEnvironment($id)`
-The method returns the details of the environment of this sensor as `Environment` object.
+Deletes all the uploaded files of the user.
 
-`addSensorsToEnvironment( $id, $sensorIds)`
-The method adds a sensor to an environment. To connect an individual sensor a sensor object with only the sensor id can be given and to connect a list of sensors a sensors object with an array of sensor ids can be given.
+### `uploadSensorData( $json)`
 
-`listEnvironmentSensors($id)`
-This method list the sensors which are connected to this environment. Returns a list of `Sensor` objects.
+Uploads sensor data for multiple sensors at once. The uploaded data can either be a single value or an array.
 
-`removeSensorFromEnvironment($environmentID, $sensorID)`
-This method removes the selected sensor from the selected environment.
+### `readSensorEnvironment($id)`
 
-`readParentDevice( $sensorID)`
-This method returns a `Device` object to witch the sensor is connected.
+Returns the details of the environment of this sensor as `Environment` object.
 
-`addToParentDevice( $sensorID, $deviceID, $type, $uuid)`
-This method adds a sensor to a device. If the device does not exists then it will be created. Either a device_id or type and uuid combination is needed. The type of the sensor will then be automatically be set to 1.
+### `addSensorsToEnvironment( $id, $sensorIds)`
 
-`removeFromParentDevice( $sensorID)`
-This method will remove a sensor from a device. The type of the device will then automatically be set to 0.
+Adds a sensor to an environment. To connect an individual sensor a sensor object with only the sensor id can be given and to connect a list of sensors a sensors object with an array of sensor ids can be given.
 
-`sharredUsers( $sensorID)`
-This method will list the users that have access to the sensor. Returns a list of `User` objects.
+### `listEnvironmentSensors($id)`
 
-`addSharredUser( $sensorID, $userID, $username)`
-This method will add a user to a sensor, giving the user access to the sensor and data. Only the owner of the sensor is able to upload data, mutate sensors and add users to their sensor. To add a user at least a username or user_id must be specified.
+Lists the sensors which are connected to this environment. Returns a list of `Sensor` objects.
 
-`removeSharredUser( $sensorID, $userID)`
-This method removes a users from a sensor, which removes the access to the sensor for this user.
+### `removeSensorFromEnvironment($environmentID, $sensorID)`
 
-`listConnectedSensors( $sensorID)`
-This method returns a list of `Sensor` objects that the sensor with uses.
+Removes the selected sensor from the selected environment.
 
-`connectSensor( $sensorID, $connectedSensorID)`
-This method connects a sensor to the sensor selected with <sensor_id>. The type of the selected sensor will be automatically set to 2 (virtual sensor).
+### `readParentDevice( $sensorID)`
 
-`removeConnectedSensor( $sensorID, $connectedSensor)`
-This method removes a sensor from the parent sensor. If the parent sensor does not have any sensors that it uses, its type will automatically be set to 0. If this parent sensor is also a service, then the connected sensor will also be disconnected from the service.
+Returns a `Device` object to witch the sensor is connected.
 
-`listRunningServices( $sensorID)`
-This method lists all the running services for a sensor. It also lists the data fields of the sensor that are used by each service. Returns a list of `Service` objects.
+### `addToParentDevice( $sensorID, $deviceID, $type, $uuid)`
 
-`listAvailableServices( $sensorID)`
-This method lists all the available services for a sensor based on its data fields. Returns a list of `Service` objects.
+Adds a sensor to a device. If the device does not exists then it will be created. Either a device_id or type and uuid combination is needed. The type of the sensor will then be automatically be set to 1.
 
-`useService($sensorID, $json)`
-This method connects a sensor to a service. In the POST data a service object is posted with the name of the service that is used. If the id of an existing service object is specified then this sensor will be connected to that service. Otherwise a new service will be created. In the optional array 'data_fields' the data fields of the sensor that should be used by this service can be specified. For every new service a virtual sensor is created. Data send from this service is stored under that virtual sensor. Optionally a sensor object with the name and device_type for the virtual sensor can be posted along with the creation of the service.
+### `removeFromParentDevice($sensorID)`
 
-`disconnectFromService( $sensorID, $serviceID)`
+Removes a sensor from a device. The type of the device will then automatically be set to 0.
+
+### `sharedUsers($sensorID)`
+
+Lists the users that have access to the sensor. Returns a list of `User` objects.
+
+### `addSharedUser($sensorID, $userID, $username)`
+
+Adds a user to a sensor, giving the user access to the sensor and data. Only the owner of the sensor is able to upload data, mutate sensors and add users to their sensor. To add a user at least a username or user_id must be specified.
+
+### `removeSharedUser($sensorID, $userID)`
+
+Removes a users from a sensor, which removes the access to the sensor for this user.
+
+### `listConnectedSensors( $sensorID)`
+
+Returns a list of `Sensor` objects that the sensor with uses.
+
+### `connectSensor( $sensorID, $connectedSensorID)`
+
+Connects a sensor to the sensor selected with `sensorId`. The type of the selected sensor will be automatically set to 2 (virtual sensor).
+
+### `removeConnectedSensor( $sensorID, $connectedSensor)`
+
+Removes a sensor from the parent sensor. If the parent sensor does not have any sensors that it uses, its type will automatically be set to 0. If this parent sensor is also a service, then the connected sensor will also be disconnected from the service.
+
+### `listRunningServices( $sensorID)`
+
+Lists all the running services for a sensor. It also lists the data fields of the sensor that are used by each service. Returns a list of `Service` objects.
+
+### `listAvailableServices( $sensorID)`
+
+Lists all the available services for a sensor based on its data fields. Returns a list of `Service` objects.
+
+### `useService($sensorID, $json)`
+
+Connects a sensor to a service. In the POST data a service object is posted with the name of the service that is used. If the id of an existing service object is specified then this sensor will be connected to that service. Otherwise a new service will be created. In the optional array 'data_fields' the data fields of the sensor that should be used by this service can be specified. For every new service a virtual sensor is created. Data send from this service is stored under that virtual sensor. Optionally a sensor object with the name and device_type for the virtual sensor can be posted along with the creation of the service.
+
+### `disconnectFromService( $sensorID, $serviceID)`
+
 This method disconnects the parent sensor from the service. The service will be stopped if it's not used by other sensors.
 
-`listServiceMethods( $sensorID, $serviceID)`
-This method lists all the available methods of the service selected with . These methods can be accessed to set and retrieve the settings of a service.
+### `listServiceMethods( $sensorID, $serviceID)`
 
-`runServiceGetMethod( $sensorID, $serviceID, $method)`
+Lists all the available methods of the service. These methods can be accessed to set and retrieve the settings of a service.
+
+### `runServiceGetMethod( $sensorID, $serviceID, $method)`
+
 To retrieve information about a service, one of its 'get_methods' can be accessed by specifying the method name in the request url.
 
-`runServiceSetMethod( $sensorID, $serviceID, $method, $parameters)`
+### `runServiceSetMethod( $sensorID, $serviceID, $method, $parameters)`
+
 To change specific settings of a service, one of its 'set_methods' can be accessed by specifying the method name in the request url. The parameters for the method are send in a parameters array. The response content is based on the method return type. If the method does not have a return value then it will return an object with result ok if the method succeeds.
 
-`learnPattern( $SensorID, $serviceID, $startData, $endDate, $label)`
+### `learnPattern( $SensorID, $serviceID, $startData, $endDate, $label)`
+
 With this method states can be learned using previously stored data. This method is currently only available for the state_recognition_service and the pose_prediction_service. By giving a class label, start and end date, a state will be learned using the data from all the associated sensors from within the given time range.
 
-`listAllAvailableServices()`
-This method lists all the available services for all the sensors. Available services are selected based on their data fields.
+### `listAllAvailableServices()`
 
-`listAllUsers( $page, $perPage)`
-This method lists all the users in the database with only their user_id, name and surname.
+Lists all the available services for all the sensors. Available services are selected based on their data fields.
 
-`createUser( $email, $username, $name, $surname, $mobile, $password)`
-This method will create a user in the database. The username must be unique and the password must be a md5 hashed password. The response content will be contain the created user information. The uuid is a uniquely generated id which can be used to retrieve data without logging in.
+### `listAllUsers( $page, $perPage)`
 
-`readUser($userID)`
-This method returns a `User `object. Only the current user can be selected. 
+Lists all the users in the database with only their user_id, name and surname.
 
-`updateUser($userID, $email, $username, $name, $surname, $mobile, $password)`
-This method updates the details of the user. Only the user_id of the current user can be selected.
+### `createUser( $email, $username, $name, $surname, $mobile, $password)`
 
-`deleterUser($userID)`
-This method will remove the user from the database together with his external services.
+Creates a user in the database. The username must be unique and the password must be a md5 hashed password. The response content will be contain the created user information. The uuid is a uniquely generated id which can be used to retrieve data without logging in.
 
-`readCurrentUser()`
-This method returns the details of the current user as `User` object.
+### `readUser($userID)`
+
+Returns a `User` object. Only the current user can be selected. 
+
+### `updateUser($userID, $email, $username, $name, $surname, $mobile, $password)`
+
+Updates the details of the user. Only the user_id of the current user can be selected.
+
+### `deleterUser($userID)`
+
+Removes the user from the database together with his external services.
+
+### `readCurrentUser()`
+
+Returns the details of the current user as `User` object.
 
 Class: User.PHP
 ---------------
