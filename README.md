@@ -116,7 +116,7 @@ Updates an existing sensor.
 
 Deletes a sensor. If the current user is the owner of the sensor then the sensor will be removed from the current user and all other users. If the current user is not owner of the sensor then access to the sensor will be removed for this user.
 
-### `listSensorData($id, $page, $perPage, $startDate, $endDate, $date, $next, $last, $sort, $total)`
+### `listSensorData($id, $page, $perPage, $startDate, $endDate, $date, $next, $last, $sort, $total, $jsonvalue)`
 
 Returns a list of sensor data. The maximum amount of data points that can be retrieved at once are 1000 items.
 

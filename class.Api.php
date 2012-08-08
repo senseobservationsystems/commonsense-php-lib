@@ -835,7 +835,7 @@ class Api
      * @param  Boolean total
      * @return json object (max 1000 items)
      */
-    public function listSensorData( $id, $page = -1, $perPage = -1, $startDate = 0, $endDate = 0, $date = 0, $next = 0, $last = 0, $sort = 'DESC', $total = NULL, $interval = 0)
+    public function listSensorData( $id, $page = -1, $perPage = -1, $startDate = 0, $endDate = 0, $date = 0, $next = 0, $last = 0, $sort = 'DESC', $total = NULL, $interval = 0, $jsonvalue = false)
     {
     	$parameters = "";
 		if($page != -1){
@@ -865,7 +865,9 @@ class Api
 		if($total){
 			$parameters .= "total=1&";
 		}
-		
+		if($jsonvalue == true){
+			$parameters .= "jsonvalue=1&";
+		}
 		$parameters .= "sort=".$sort;
 			
 		$data = $this->call(array(), "GET", "sensors/".$id."/data.json?".$parameters);
