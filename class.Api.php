@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 session_start();
 
-//import required classes
+// import required classes
 require_once("classes/objects/Sensor.php");
 require_once("classes/objects/Device.php");
 require_once("classes/objects/User.php");
@@ -719,13 +719,13 @@ class Api
      * @access public
      * @param  int page
      * @param  int perPage
-     * @param  Boolean sharred
+     * @param  Boolean shared
      * @param  Boolean owned
      * @param  Boolean physical
      * @param  Boolean details
      * @return mixed
      */
-    public function listSensors($page, $perPage, $sharred, $owned, $physical)
+    public function listSensors($page, $perPage, $shared, $owned, $physical)
     {
     	$parameters = "";
     	if($page != -1){
@@ -734,7 +734,7 @@ class Api
 		if($perPage != -1){
     		$parameters .= "per_page=".$perPage."&";
     	}
-		if($sharred){
+		if($shared){
     		$parameters .= "shared=1&";
     	}
 		if($owned){
@@ -1077,7 +1077,7 @@ class Api
      * @param  int sensorID
      * @return Array
      */
-    public function sharredUsers( $sensorID)
+    public function sharedUsers( $sensorID)
     {
 		$data = $this->call(array(), "GET", "sensors/".$sensorID."/users.json");
 		$data = $data->{'users'};
@@ -1097,7 +1097,7 @@ class Api
      * @param  string username
      * @return mixed
      */
-    public function addSharredUser( $sensorID, $userID, $username)
+    public function addSharedUser( $sensorID, $userID, $username)
     {
 		$data = $this->call(array("id"=>$userID, "username"=>$username), "POST", "sensors/".$sensorID."/users.json");
 		return $data;
@@ -1111,7 +1111,7 @@ class Api
      * @param  int userID
      * @return mixed
      */
-    public function removeSharredUser( $sensorID, $userID)
+    public function removeSharedUser( $sensorID, $userID)
     {
 		$data = $this->call(array(), "DELETE", "sensors/".$sensorID."/users/".$userID.".json");
 		return $data;
