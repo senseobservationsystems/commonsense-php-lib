@@ -3,14 +3,16 @@
 error_reporting(E_ALL);
 session_start();
 
-// import required classes
-require_once("classes/objects/Sensor.php");
-require_once("classes/objects/Device.php");
-require_once("classes/objects/User.php");
-require_once("classes/objects/Group.php");
-require_once("classes/objects/Data.php");
-require_once("classes/objects/Service.php");
-require_once("classes/core/CommonsenseOAuthClient.class.php");
+//import required classes
+require_once("objects/Sensor.php");
+require_once("objects/Device.php");
+require_once("objects/User.php");
+require_once("objects/Group.php");
+require_once("objects/Data.php");
+require_once("objects/Service.php");
+require_once("objects/Trigger.php");
+require_once("objects/Notification.php");
+
 
 /**
  * sense dashboard - class.Api.php
@@ -79,6 +81,14 @@ class Api
      */
     private $oauth_connection = null;
 
+    /**
+     * The url of the commonSense server to which all the requests should me made
+     * 
+     * @access private
+     * @var string
+     */
+    private $server_url = "http://api.sense-os.nl/";
+    
     /**
      * Contains the current Error message
      *
@@ -149,7 +159,7 @@ class Api
     		
     	}elseif(!empty($this->session_id)){
     		$data_string = json_encode($data);  
-			$ch = curl_init('http://api.sense-os.nl/'.$method);                                                                      
+			$ch = curl_init($this->server_url.$method);                                                                      
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);                                                                                                                                       
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			if(count($data) != 0)     
@@ -176,10 +186,10 @@ class Api
      * @param  string method (users/current.json)
      * @return json object
      */
-    private function callByJson($data_string, $type, $method)
+    private function callByJson($data, $type, $method)
     {
-
-		$ch = curl_init('http://api.sense-os.nl/'.$method);                                                                      
+    	$data_string = json_encode($data);
+		$ch = curl_init($this->server_url.$method);                                                                      
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);                                                                                                                                       
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		if(count($data) != 0)     
@@ -229,13 +239,15 @@ class Api
      * @param  string password
      * @return mixed
      */
-    public function login($username, $password)
+    public function login($username, $password, $md5_used=false)
     {
 		if($username != "" && $password != ""){
-			$data = array("username" => $username, "password" => md5($password));                                                                    
+			if(!$md5_used)
+				$password = md5($password);
+			$data = array("username" => $username, "password" => $password);                                                                    
 			$data_string = json_encode($data);                                                                                   
 			 
-			$ch = curl_init('http://api.sense-os.nl/login.json');                                                                      
+			$ch = curl_init($this->server_url.'login.json');                                                                      
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
@@ -635,6 +647,20 @@ class Api
 		$data = $this->call(array("group"=>array("email"=>$email, "username"=>$username, "password"=>$password, "name"=>$name)), "POST", "groups.json");
 		return $data;
     }
+    
+    /**
+     * This method will create a group to which the current user will be added.
+     * This method accepts the parameters for the group in the data array
+     *
+     * @access public
+     * @param  array data
+     * @return JsonObject
+     */
+    public function createGroupFromArray($data)
+    {    	
+    	$data = $this->call($data, "POST", "groups.json");
+    	return $data;
+    }
 
     /**
      * This method returns the details of a group. Only members of a group can see the details of a group.
@@ -709,7 +735,7 @@ class Api
      */
     public function addUserToGroup($id, $userID, $userName)
     {
-		$data = $this->call(array("id"=>$userID, "username"=>$userName), "POST", "groups/".$id."/users.json");
+		$data = $this->call(array("user" => array("id"=>$userID, "username"=>$userName)), "POST", "groups/".$id."/users.json");
 		return $data;
     }
 
@@ -719,13 +745,13 @@ class Api
      * @access public
      * @param  int page
      * @param  int perPage
-     * @param  Boolean shared
+     * @param  Boolean sharred
      * @param  Boolean owned
      * @param  Boolean physical
      * @param  Boolean details
      * @return mixed
      */
-    public function listSensors($page, $perPage, $shared, $owned, $physical)
+    public function listSensors($page, $perPage, $sharred, $owned, $physical)
     {
     	$parameters = "";
     	if($page != -1){
@@ -734,7 +760,7 @@ class Api
 		if($perPage != -1){
     		$parameters .= "per_page=".$perPage."&";
     	}
-		if($shared){
+		if($sharred){
     		$parameters .= "shared=1&";
     	}
 		if($owned){
@@ -772,6 +798,144 @@ class Api
 		$data = $this->call(array("sensor"=>array("name"=>$name, "display_name"=>$displayName, "device_type"=>$deviceType, "pager_type"=>$pagerType, "data_type"=>$dataType, "data_structure"=>$dataStructure)), "POST", "sensors.json");
 		return $data;
     }
+    
+    /**
+     * This method will create a new trigger. 
+     *
+     * @access public
+     * @param  string name
+     * @param  string expression
+     * @param  int inactivity     
+     * @return json object
+     */
+    public function createTrigger($name, $expression, $inactivity =NULL)
+    {
+    	if(isset($inactivity))
+    		$data = $this->call(array("trigger"=>array("name"=>$name, "expression"=>$expression, "inactivity"=>$inactivity)), "POST", "triggers.json");
+    	else	
+    		$data = $this->call(array("trigger"=>array("name"=>$name, "expression"=>$expression)), "POST", "triggers.json");
+    	return $data;
+    }
+    
+    /**
+     * This method will add a trigger to a sensor
+     *
+     * @access public
+     * @param  int sensor_id
+     * @param  int trigger_id     
+     * @return json object
+     */
+    public function addSensorTrigger($sensor_id, $trigger_id)
+    {
+    	$data = $this->call(array("trigger"=>array("id"=>$trigger_id)), "POST", "sensors/$sensor_id/triggers.json");
+    	
+    	return $data;
+    }
+    
+    /**
+     * This method will update a sensor trigger
+     *
+     * @access public
+     * @param  int sensor_id
+     * @param  int trigger_id
+     * 
+     * @return json object
+     */
+    public function updateSensorTrigger($sensor_id, $trigger_id, $active=0, $last_sensor_data_value="", $last_sensor_data_date=0)
+    {
+    	$data = $this->call(array("trigger"=>array("active"=>$active,    												
+    												"last_sensor_data_value" =>$last_sensor_data_value,
+    												"last_sensor_data_date" =>$last_sensor_data_date))
+    			, "PUT", "/sensors/$sensor_id/trigger/$trigger_id.json");
+    	 
+    	return $data;
+    }
+    
+    
+    
+    /**
+     * This method will add a notification to a sensor trigger
+     *
+     * @access public
+     * @param  int sensor_id
+     * @param  int trigger_id
+     * @param  int notification_id
+     * @return json object
+     */
+    public function addSensorTriggerNotification($sensor_id, $trigger_id, $notification_id)
+    {
+    	$data = $this->call(array("notification"=>array("id"=>$notification_id)), "POST", "sensors/$sensor_id/triggers/$trigger_id/notifications.json");    	 
+    	return $data;
+    }
+    
+   /** This method returns a list of triggers to which the current user has access.
+    *
+    * @access public
+    * @return mixed
+    */
+    public function listTriggers()
+    {
+    	
+    
+    	$data = $this->call(array(), "GET", "triggers.json");
+    	$data = $data->{'triggers'};
+    	$triggerArray = new ArrayObject();
+    	for($i = 0; $i<count($data);$i++){
+    		$triggerArray->append(new Trigger($data[$i], $this));
+    	}
+    	return $triggerArray;
+    }
+    
+    /** This method returns a list of triggers which are connected to this sensor.
+     *
+     * @access public
+     * @return mixed
+     */
+    public function listSensorTriggers($sensor_id)
+    {
+    	$data = $this->call(array(), "GET", "/sensors/$sensor_id/triggers.json");
+    	$data = $data->{'triggers'};
+    	$triggerArray = new ArrayObject();
+    	for($i = 0; $i<count($data);$i++){
+    		$triggerArray->append(new Trigger($data[$i], $this));
+    	}
+    	return $triggerArray;
+    }
+    
+            
+    /**
+     * This method will create a new notification.
+     *
+     * @access public
+     * @param  string type
+     * @param  string text
+     * @param  string destination
+     * @return json object
+     */
+    public function createNotification($type, $text, $destination)
+    {
+    	$data = $this->call(array("notification"=>array("type"=>$type, "text"=>$text, "destination"=>$destination)), "POST", "notifications.json");
+       	return $data;
+    }
+    
+    /** This method returns a list of notifications to which the current user has access.
+     *
+     * @access public
+     * @return mixed
+     */
+    public function listNotifications()
+    {  	 
+    
+    	$data = $this->call(array(), "GET", "notifications.json");
+    	$data = $data->{'notifications'};
+    	$notificationArray = new ArrayObject();
+    	for($i = 0; $i<count($data);$i++){
+    		$notificationArray->append(new Notification($data[$i], $this));
+    	}
+    	return $notificationArray;
+    }
+    
+    
 
     /**
      * This method will return the details of a sensor.
@@ -835,7 +999,7 @@ class Api
      * @param  Boolean total
      * @return json object (max 1000 items)
      */
-    public function listSensorData( $id, $page = -1, $perPage = -1, $startDate = 0, $endDate = 0, $date = 0, $next = 0, $last = 0, $sort = 'DESC', $total = NULL, $interval = 0, $jsonvalue = false)
+    public function listSensorData( $id, $page = -1, $perPage = -1, $startDate = 0, $endDate = 0, $date = 0, $next = 0, $last = 0, $sort = 'DESC', $total = NULL, $interval = 0)
     {
     	$parameters = "";
 		if($page != -1){
@@ -865,9 +1029,7 @@ class Api
 		if($total){
 			$parameters .= "total=1&";
 		}
-		if($jsonvalue == true){
-			$parameters .= "jsonvalue=1&";
-		}
+		
 		$parameters .= "sort=".$sort;
 			
 		$data = $this->call(array(), "GET", "sensors/".$id."/data.json?".$parameters);
@@ -992,6 +1154,25 @@ class Api
 		$data = $this->call($sensors, "POST", "environments/".$id."/sensors.json");
 		return $data;
     }
+    
+    /**
+     * The method adds sensors to a group.
+     *
+     * @access public
+     * @param  int group_id
+     * @param  Array sensorIds
+     * @return mixed
+     */
+    public function addSensors($group_id, $sensor_ids)
+    {
+    	$sensor_ids_json = array();
+    	foreach($sensor_ids as $sensor_id)
+    	{
+    		$sensor_ids_json[] = array("id" => $sensor_id);
+    	}
+    	$data = $this->call( array("sensors" => $sensor_ids_json), "POST", "groups/".$group_id."/sensors.json");
+    	return $data;
+    }
 	
     /**
      * This method list the sensors which are connected to this environment.
@@ -1079,7 +1260,7 @@ class Api
      * @param  int sensorID
      * @return Array
      */
-    public function sharedUsers( $sensorID)
+    public function sharredUsers( $sensorID)
     {
 		$data = $this->call(array(), "GET", "sensors/".$sensorID."/users.json");
 		$data = $data->{'users'};
@@ -1099,7 +1280,7 @@ class Api
      * @param  string username
      * @return mixed
      */
-    public function addSharedUser( $sensorID, $userID, $username)
+    public function addSharredUser( $sensorID, $userID, $username)
     {
 		$data = $this->call(array("id"=>$userID, "username"=>$username), "POST", "sensors/".$sensorID."/users.json");
 		return $data;
@@ -1113,7 +1294,7 @@ class Api
      * @param  int userID
      * @return mixed
      */
-    public function removeSharedUser( $sensorID, $userID)
+    public function removeSharredUser( $sensorID, $userID)
     {
 		$data = $this->call(array(), "DELETE", "sensors/".$sensorID."/users/".$userID.".json");
 		return $data;
@@ -1420,6 +1601,9 @@ class Api
 		return new User($data, $this);
     }
 
+    
+    
+    
 } /* end of class Api */
 
 ?>

@@ -1,7 +1,7 @@
 <?php 
 
-require_once("../core/OAuthUtil.class.php");
-require_once("../core/OAuthSignatureMethod.class.php");
+require_once("../OAuthUtil.class.php");
+require_once("../OAuthSignatureMethod.class.php");
 
 /**
  * The PLAINTEXT method does not provide any security protection and SHOULD only be used

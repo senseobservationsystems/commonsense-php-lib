@@ -67,6 +67,27 @@ class User
      * @var string
      */
     private $mobile = null;
+    
+    /**
+     * @access private
+     * @var string
+     */
+    private $address = null;
+    
+    
+    /**
+     * @access private
+     * @var string
+     */
+    private $zipcode = null;
+    
+    
+    /**
+     * @access private
+     * @var string
+     */
+    private $country = null;
+    
 	
 	/**
      * @access private
@@ -91,7 +112,7 @@ class User
 
 	public function User(stdClass $data, Api $api ){
 		$this->id = $data->{'id'};
-		$this->email = $data->{'email'};
+		$this->email = @$data->{'email'};
 		if(isset($data->{'username'}))
 			$this->username = $data->{'username'};
 		$this->name = $data->{'name'};
@@ -100,6 +121,12 @@ class User
 			$this->mobile = $data->{'mobile'};
 		if(isset($data->{'UUID'}))
 			$this->UUID = $data->{'UUID'};
+		if(isset($data->{'address'}))
+			$this->address = $data->{'address'};
+		if(isset($data->{'zipcode'}))
+			$this->zipcode = $data->{'zipcode'};
+		if(isset($data->{'country'}))
+			$this->country = $data->{'country'};
 		if(isset($data->{'openid'}))
 			$this->openid = $data->{'openid'};
 		$this->api = $api;
@@ -131,6 +158,18 @@ class User
 	
 	public function getUniqueID(){
 		return $this->UUID;
+	}
+	
+	public function getAddress(){
+		return $this->address;
+	}
+	
+	public function getZipcode(){
+		return $this->zipcode;
+	}
+	
+	public function getCountry(){
+		return $this->country;
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 <?php 
 
-require_once("../core/OAuthSignatureMethod.class.php");
+require_once("../OAuthSignatureMethod.class.php");
 
 /**
  * The RSA-SHA1 signature method uses the RSASSA-PKCS1-v1_5 signature algorithm as defined in

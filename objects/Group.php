@@ -122,6 +122,21 @@ class Group
     {
 		return $this->api->addUserToGroup($this->getID(), $userID, $userName);
     }
+    
+    /**
+     * This method will add sensors to the group. 
+     * 
+     *
+     * @access public
+     * @param  array sensor_ids
+     * @return mixed
+     */
+    public function addSensors($sensor_ids)
+    {
+    	return $this->api->addSensors($this->getID(), $sensor_ids);
+    }
+    
+    
 	
 } /* end of class Group */
 

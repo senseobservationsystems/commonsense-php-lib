@@ -1,7 +1,7 @@
 <?php 
 
-require_once("classes/core/OAuthUtil.class.php");
-require_once("classes/core/OAuthSignatureMethod.class.php");
+require_once("./../OAuthUtil.class.php");
+require_once("../OAuthSignatureMethod.class.php");
 
 /**
  * The HMAC-SHA1 signature method uses the HMAC-SHA1 signature algorithm as defined in [RFC2104]

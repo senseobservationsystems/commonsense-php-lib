@@ -86,6 +86,13 @@ class Sensor
      * @var string
      */
     private $data_structure = null;
+    
+    /**
+     * @access private
+     * @var Device
+     */
+    private $device = null;
+       
 	
 	
 	
@@ -98,6 +105,9 @@ class Sensor
 		$this->device_type = $data->{'device_type'};
 		if(isset($data->{'data_type_id'}))
 			$this->data_type_id = $data->{'data_type_id'};
+		if(isset($data->{'device'}))
+			$this->device = new Device($data->{'device'}, $api);
+					 
 		$this->pager_type = $data->{'pager_type'};
 		$this->display_name = $data->{'display_name'};
 		$this->data_type = $data->{'data_type'};
@@ -202,6 +212,13 @@ class Sensor
 		return $this->api->uploadSensorData($json);
     }
 	
+    public function getDevice()
+    {
+    	if(!isset($this->device))
+    		return $this->getMyDevice();
+    	return $this->device;
+    }
+    
 	/**
      * This method returns the details of the device to witch the sensor is connected.
      *
@@ -210,7 +227,10 @@ class Sensor
      */
 	public function getMyDevice()
     {
-		return $this->api->readParentDevice($this->getID());
+    	if($this->type == 1)
+			return $this->device = $this->api->readParentDevice($this->getID());
+    	else 
+    		return NULL;
     }
 	
 	/**
