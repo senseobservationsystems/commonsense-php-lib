@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_o_auth_signature_method_hmac_sha1.html" title="OAuthSignatureMethodHmacSha1" alt="" coords="212,5,433,35"/>
+<area shape="rect" id="node5" href="$class_o_auth_signature_method_plain_text.html" title="OAuthSignatureMethodPlainText" alt="" coords="217,59,428,88"/>
+<area shape="rect" id="node7" href="$class_o_auth_signature_method_rsa_sha1.html" title="OAuthSignatureMethodRsaSha1" alt="" coords="217,112,428,141"/>
+</map>

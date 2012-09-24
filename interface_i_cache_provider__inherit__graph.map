@@ -1,0 +1,7 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_apc_cache_provider.html" title="ApcCacheProvider" alt="" coords="189,5,320,35"/>
+<area shape="rect" id="node5" href="$class_memcache_cache_provider.html" title="MemcacheCacheProvider" alt="" coords="169,59,340,88"/>
+<area shape="rect" id="node7" href="$class_memcached_cache_provider.html" title="MemcachedCacheProvider" alt="" coords="165,112,344,141"/>
+<area shape="rect" id="node9" href="$class_no_op_cache_provider.html" title="NoOpCacheProvider" alt="" coords="184,165,325,195"/>
+<area shape="rect" id="node11" href="$class_sqlite_cache_provider.html" title="SqliteCacheProvider" alt="" coords="184,219,325,248"/>
+</map>
