@@ -14,7 +14,6 @@ require_once('Cache.class.php');
  * @license MIT
  * @link http://www.recessframework.org/
  * 
- * @todo Allow framework to register packages/shortcuts? i.e.: Library::import('recess.framework.models.Model') vs. Library::import('recess','Model')
  */
 abstract class Library {
 	static private $classesByClass = array();	// = array( 'Inflector' => array( 'recess.lang.Inflector', 0 );
@@ -180,8 +179,7 @@ abstract class Library {
 		}
 	}
 	
-	static function importAndInstantiate($fullName) {
-		// TODO: REDUCE DUPLICATION WITH IMPORT
+	static function importAndInstantiate($fullName) {		
 		if(isset(self::$classesByFull[$fullName])) {
 			$className = self::$classesByFull[$fullName];
 		} else {

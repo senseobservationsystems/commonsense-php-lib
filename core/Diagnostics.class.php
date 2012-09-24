@@ -5,7 +5,7 @@ Library::import('ResponseCodes');
 /**
  * @author Kris Jordan <krisjordan@gmail.com>
  * @copyright 2008, 2009-2009 Kris Jordan
- * @package recess
+ * @package Recess PHP Framework
  * @license MIT
  * @link http://www.recessframework.org/
  */

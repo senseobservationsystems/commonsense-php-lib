@@ -1,4 +1,4 @@
-CommonSense PHP API
+CommonSense PHP API Library
 ===================
 
 A PHP class library for the communication between your PHP application and the Sense API. Easy to add in your application directory.
@@ -8,7 +8,7 @@ Class: class.Api.PHP
 
 Handles all the API calls.
 
-### `api()`
+### `api()` 
 
 Constructor.
 
@@ -565,4 +565,5 @@ Returns the location of the file.
 ### `deleteFile()`
 
 Deletes the file that is uploaded and stored under the name given in this sensor data value.
+
 
