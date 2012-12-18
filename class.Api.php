@@ -813,7 +813,7 @@ class Api
     	$parameters .= "details=full";
 
 		$data = $this->call(array(), "GET", "sensors.json?".$parameters);
-		$data = $data->{'sensors'};
+		$data = @$data->{'sensors'};
 		$sensorArray = new ArrayObject();
 		for($i = 0; $i<count($data);$i++){
 			$sensorArray->append(new Sensor($data[$i], $this));
