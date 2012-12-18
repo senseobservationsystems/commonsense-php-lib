@@ -92,7 +92,12 @@ class Sensor
      * @var Device
      */
     private $device = null;
-       
+
+    /**
+     * @access private
+     * @var User
+     */
+    private $owner = null;
 	
 	
 	
@@ -107,16 +112,22 @@ class Sensor
 			$this->data_type_id = $data->{'data_type_id'};
 		if(isset($data->{'device'}))
 			$this->device = new Device($data->{'device'}, $api);
+		if(isset($data->{'owner'}))
+			$this->owner = new User($data->{'owner'}, $api);
 					 
 		$this->pager_type = $data->{'pager_type'};
 		$this->display_name = $data->{'display_name'};
 		$this->data_type = $data->{'data_type'};
-		$this->data_structure = $data->{'data_structure'};
+		$this->data_structure = $data->{'data_structure'};		
 		$this->api = $api;
 	}
 	
 	public function getID(){
 		return $this->id;
+	}
+	
+	public function getOwner(){
+		return $this->owner;
 	}
 	
 	public function getName(){

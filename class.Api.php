@@ -130,6 +130,11 @@ class Api
 	public function setSessionId($sessionid){
 		$this->session_id = $sessionid;
 	}
+	
+	private function sleepSome()
+	{
+		sleep(20);
+	}
 
     /**
      * This function handles all json calls with the common sense API
@@ -158,19 +163,30 @@ class Api
     		}
     		
     	}elseif(!empty($this->session_id)){
-    		$data_string = json_encode($data);  
-			$ch = curl_init($this->server_url.$method);                                                                      
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);                                                                                                                                       
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			if(count($data) != 0)     
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-			    'Content-Type: application/json',                                                                       
-			    'X-SESSION_ID: '. $this->session_id
-			));                                                                                                                   
-			
-			$result = curl_exec($ch);
-			$obj = json_decode($result);
+    		$retry = 0;
+    		while ($retry < 3)
+    		{
+    			++$retry;
+	    		$data_string = json_encode($data);  
+				$ch = curl_init($this->server_url.$method);                                                                      
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);                                                                                                                                       
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				if(count($data) != 0)     
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+				    'Content-Type: application/json',                                                                       
+				    'X-SESSION_ID: '. $this->session_id
+				));                                                                                                                   
+				
+				$result = curl_exec($ch);
+				$obj = @json_decode($result);
+				$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+				if($http_status == "200" || $http_status == "201")
+					break;
+				elseif($http_status == "509")
+					$this->sleepSome();				
+    		}
     	}else{
     		$obj = null;
     	}                                                   
@@ -188,21 +204,31 @@ class Api
      */
     private function callByJson($data, $type, $method)
     {
-    	$data_string = json_encode($data);
-		$ch = curl_init($this->server_url.$method);                                                                      
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);                                                                                                                                       
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		if(count($data) != 0)     
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-		    'Content-Type: application/json',                                                                       
-		    'X-SESSION_ID: '. $this->session_id
-		));                                                                                                                   
-		
-		$result = curl_exec($ch);
-		$obj = json_decode($result);
-		
-		return $obj;
+    	$retry = 0;
+    	while($retry < 3)
+    	{
+    		++$retry;
+    		$data_string = json_encode($data);
+    		$ch = curl_init($this->server_url.$method);
+    		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
+    		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    		if(count($data) != 0)
+    			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+    		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    				'Content-Type: application/json',
+    				'X-SESSION_ID: '. $this->session_id
+    		));
+
+    		$result = curl_exec($ch);
+    		$obj = @json_decode($result);
+
+    		$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    		if($http_status == "200" || $http_status == "201")
+    			break;
+    		elseif($http_status == "509")
+    			$this->sleepSome();
+    	}
+    	return $obj;
     }
 
     /**
@@ -242,22 +268,33 @@ class Api
     public function login($username, $password, $md5_used=false)
     {
 		if($username != "" && $password != ""){
-			if(!$md5_used)
-				$password = md5($password);
-			$data = array("username" => $username, "password" => $password);                                                                    
-			$data_string = json_encode($data);                                                                                   
-			 
-			$ch = curl_init($this->server_url.'login.json');                                                                      
-			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-			    'Content-Type: application/json',                                                                                
-			    'Content-Length: ' . strlen($data_string))                                                                       
-			);                                                                                                                   
-			 
-			$result = curl_exec($ch);
-			$obj = json_decode($result);
+			$retry = 0;
+			while($retry < 3)
+			{
+				++$retry;
+				if(!$md5_used)
+					$password = md5($password);
+				$data = array("username" => $username, "password" => $password);
+				$data_string = json_encode($data);
+
+				$ch = curl_init($this->server_url.'login.json');
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+						'Content-Type: application/json',
+						'Content-Length: ' . strlen($data_string))
+				);
+
+				$result = curl_exec($ch);
+				$obj = @json_decode($result);
+				$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+					
+				if($http_status == "200" || $http_status == "201")				
+					break;				
+				elseif($http_status == "509")				
+					$this->sleepSome();
+			}
 			
 			if(isset($obj->{'error'}) && $obj->{'error'} == "unauthorized"){
 				$this->error("No username or password! \n");
@@ -267,6 +304,7 @@ class Api
 				$_SESSION['session_id'] = $obj->{'session_id'};
 			}
 			return true; //should return user
+				
 		}else{
 			$this->error("No username or password! \n");
 			return false;
@@ -745,13 +783,13 @@ class Api
      * @access public
      * @param  int page
      * @param  int perPage
-     * @param  Boolean sharred
+     * @param  Boolean shared
      * @param  Boolean owned
      * @param  Boolean physical
      * @param  Boolean details
      * @return mixed
      */
-    public function listSensors($page, $perPage, $sharred, $owned, $physical)
+    public function listSensors($page, $perPage, $shared, $owned, $physical, $group_id = -1)
     {
     	$parameters = "";
     	if($page != -1){
@@ -760,7 +798,7 @@ class Api
 		if($perPage != -1){
     		$parameters .= "per_page=".$perPage."&";
     	}
-		if($sharred){
+		if($shared){
     		$parameters .= "shared=1&";
     	}
 		if($owned){
@@ -769,6 +807,8 @@ class Api
 		if($physical){
     		$parameters .= "physical=1&";
     	}
+    	if($group_id != -1 && is_numeric($group_id))
+    		$parameters .= "group_id=$group_id&";
 
     	$parameters .= "details=full";
 

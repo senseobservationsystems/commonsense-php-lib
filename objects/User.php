@@ -115,8 +115,8 @@ class User
 		$this->email = @$data->{'email'};
 		if(isset($data->{'username'}))
 			$this->username = $data->{'username'};
-		$this->name = $data->{'name'};
-		$this->surname = $data->{'surname'};
+		$this->name = @$data->{'name'};
+		$this->surname = @$data->{'surname'};
 		if(isset($data->{'mobile'}))
 			$this->mobile = $data->{'mobile'};
 		if(isset($data->{'UUID'}))

@@ -293,49 +293,57 @@ class CommonsenseOauthClient {
 	 * 
 	 * @return API results
 	 */
-	function http($url, $method, $postFields = NULL) {
-		$this->httpInfo = array();
-		$ci = curl_init();
-		
-		// Curl settings
-		curl_setopt($ci, CURLOPT_USERAGENT, $this->userAgent);
-		curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
-		curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
-		curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ci, CURLOPT_HTTPHEADER, array("Expect:"));
-		// @@ FIXME: Verifierpeer should be true. It has been set to false
-		// just to test the oauth communcation with wireshark.
-		//curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->sslVerifyPeer);
-		curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, true);
-		curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, "getHeader"));
-		curl_setopt($ci, CURLOPT_HEADER, false);
+	function http($url, $method, $postFields = NULL) {		
+		$retry = 0;
+		while($retry < 3)
+		{
+			++$retry;
+			$this->httpInfo = array();
+			$ci = curl_init();
 
-		switch ($method) {
-		case "POST":
-			curl_setopt($ci, CURLOPT_POST, true);
-			if (!empty($postFields)) {
-				curl_setopt($ci, CURLOPT_POSTFIELDS, $postFields);
+			// Curl settings
+			curl_setopt($ci, CURLOPT_USERAGENT, $this->userAgent);
+			curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
+			curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
+			curl_setopt($ci, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ci, CURLOPT_HTTPHEADER, array("Expect:"));
+			// @@ FIXME: Verifierpeer should be true. It has been set to false
+			// just to test the oauth communcation with wireshark.
+			//curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->sslVerifyPeer);
+			curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, true);
+			curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, "getHeader"));
+			curl_setopt($ci, CURLOPT_HEADER, false);
+
+			switch ($method) {
+				case "POST":
+					curl_setopt($ci, CURLOPT_POST, true);
+					if (!empty($postFields)) {
+						curl_setopt($ci, CURLOPT_POSTFIELDS, $postFields);
+					}
+					break;
+						
+				case "DELETE":
+					curl_setopt($ci, CURLOPT_CUSTOMREQUEST, "DELETE");
+					if (!empty($postFields)) {
+						$url = "{$url}?{$postFields}";
+					}
 			}
-			break;
-			
-		case "DELETE":
-			curl_setopt($ci, CURLOPT_CUSTOMREQUEST, "DELETE");
-			if (!empty($postFields)) {
-				$url = "{$url}?{$postFields}";
-			}
+
+			curl_setopt($ci, CURLOPT_URL, $url);
+			$response = curl_exec($ci);
+
+			//syslog(LOG_INFO, "OAUTH_RESP: ".$response);
+
+			$this->httpCode = curl_getinfo($ci, CURLINFO_HTTP_CODE);
+			$this->httpInfo = array_merge($this->httpInfo, curl_getinfo($ci));
+			$this->url = $url;
+			curl_close($ci);
+					
+			if($http_status == "509")
+				$this->sleep(20);	// request limit reached, sleep some and try again
+			else
+				break;
 		}
-
-		curl_setopt($ci, CURLOPT_URL, $url);
-		$response = curl_exec($ci);
-
-		//syslog(LOG_INFO, "OAUTH_RESP: ".$response);
-
-		$this->httpCode = curl_getinfo($ci, CURLINFO_HTTP_CODE);
-		$this->httpInfo = array_merge($this->httpInfo, curl_getinfo($ci));
-		$this->url = $url;
-
-		curl_close($ci);
-
 		return $response;
 	}
 

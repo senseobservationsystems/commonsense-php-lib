@@ -56,7 +56,7 @@ class Group
 
 	public function Group(stdClass $data, Api $api ){
 		$this->id = $data->{'id'};
-		$this->name = $data->{'name'};
+		$this->name = @$data->{'name'};
 		if(isset($data->{'email'}))
 			$this->email = $data->{'email'};
 		$this->api = $api;
@@ -136,7 +136,22 @@ class Group
     	return $this->api->addSensors($this->getID(), $sensor_ids);
     }
     
-    
+    /**
+     * This method returns a list of sensors of a group.
+     *
+     * @access public
+     * @param  int page
+     * @param  int perPage
+     * @param  Boolean shared
+     * @param  Boolean owned
+     * @param  Boolean physical
+     * @param  Boolean details
+     * @return mixed
+     */
+    public function listSensors($page, $perPage, $shared, $owned, $physical)
+    {    
+    	return $this->api->listSensors($page, $perPage, $shared, $owned, $physical, $this->id);    	
+    }
 	
 } /* end of class Group */
 
