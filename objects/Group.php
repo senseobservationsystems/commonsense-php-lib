@@ -153,6 +153,47 @@ class Group
     	return $this->api->listSensors($page, $perPage, $shared, $owned, $physical, $this->id);    	
     }
 	
+    
+   /**
+     * List sensor tags within a group
+     * 
+     * This method will return a list of sensors with their metatags in the given group.
+     * 
+     * @access public
+     * @param string details To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used.
+     * @param string namespace Find metatags within the given namespace. If not given “default” is assumed as the namepace.
+     * @param string sensor_owner “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed
+     * @param int page This parameter specifies which page of the results must be retrieved. The page offset starts at 0.
+     * @param int per_page This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items 
+     */
+    public function listSensorTags($details = NULL, $namespace = NULL, $sensor_owner = NULL, $page = -1, $per_page = -1)
+    {
+    	return $this->api->listGroupSensorTags($this->id, $details, $namespace, $sensor_owner, $page, $per_page);
+    }
+    
+    /**
+     * Finding sensors by metatags
+     *
+     * Via this method a list of sensors can be selected based on a set of conditions.
+     * Supported operators are “equal”, “in”, and “is_set”. All string comparisons are case INsensitive.
+     * Currently supported are two types of statement groups. The first is "metatag_statement_groups" which allows to find sensors based on their metatags.
+     * The second is "sensor_statement_groups" which allows to find sensors based on their own properties.
+     * Supported properties are id, name, type, device_type, data_type_id, pager_type, display_name and use_data_storage.
+     *
+     * @access public
+     * @param int group_id The group identifier
+     * @param array filter {"filter":{"metatag_statement_groups":[[{"metatag_name":"greenhouse_number","operator":"equal","value":"1"},{"metatag_name":"greenhouse_number","operator":"equal","value":"2"}],[{"metatag_name":"color","operator":"equal","value":"green"}]],"sensor_statement_groups":[[{"sensor_property":"id","operator":"in","value":"1,2,3,4,5,6,7,8,9,10"}]]}}
+     * @param string details (optional) To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used.
+     * @param string namespace (optional) Find metatags within the given namespace. If not given “default” is assumed as the namepace.
+     * @param string sensor_owner (optional) “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed
+     * @param int page (optional) This parameter specifies which page of the results must be retrieved. The page offset starts at 0.
+     * @param int per_page (optional) This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items
+     */
+    public function findSensorsByTagsInGroup($filter, $details = NULL, $namespace = NULL, $sensor_owner = NULL, $page = -1, $per_page = -1)
+    {
+    	return $this->api->findSensorsByTagsInGroup($this->id, $filter,$details, $namespace, $sensor_owner, $page, $per_page);
+    }
+    
 } /* end of class Group */
 
 ?>
