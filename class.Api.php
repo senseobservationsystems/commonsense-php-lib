@@ -89,6 +89,27 @@ class Api
      */
     private $server_url = "http://api.sense-os.nl/";
     
+    /*
+     * The live server url
+     * @access private
+     * @var string
+     */
+    private $live_server_url = "https://api.sense-os.nl/";
+    
+    /*
+     * The rc server url
+    * @access private
+    * @var string
+    */
+    private $rc_server_url = "http://api.rc.dev.sense-os.nl/";
+    
+    /*
+     * The dev server url
+    * @access private
+    * @var string
+    */
+    private $dev_server_url = "http://api.dev.sense-os.nl/";
+    
     /**
      * Contains the current Error message
      *
@@ -107,7 +128,29 @@ class Api
 
     // --- OPERATIONS ---
 
-	public function api(){
+    /*
+     * The api contructor
+     * 
+     * @param string server The server to use, can be either: "live", "rc",  "dev"
+     */
+	public function api($server = ""){
+		
+		switch($server)
+		{
+			case "live":
+				$this->server_url = $this->live_server_url;
+				break;
+			case "rc":
+				$this->server_url = $this->rc_server_url;
+				break;
+			case "dev":
+				$this->server_url = $this->dev_server_url;
+				break;
+			default:
+				$this->server_url = $this->live_server_url;
+			break;
+				
+		}
 		if(isset($_SESSION['session_id']))
 			$this->session_id = $_SESSION['session_id'];
 	}
@@ -188,7 +231,19 @@ class Api
 					$this->sleepSome();				
     		}
     	}else{
-    		$obj = null;
+    		$data_string = json_encode($data);
+    		$ch = curl_init($this->server_url.$method);
+    		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $type);
+    		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    		if(count($data) != 0)
+    			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+    		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    				'Content-Type: application/json'
+    		));
+    		
+    		$result = curl_exec($ch);
+    		$obj = @json_decode($result);
+    		$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);    		
     	}                                                   
 		return $obj;
     }
@@ -1574,8 +1629,8 @@ class Api
      * @return mixed
      */
     public function createUser( $email, $username, $name, $surname, $mobile, $password)
-    {
-		$data = $this->call(array("email"=>$email, "username"=>$username, "name"=>$name, "surname"=>$surname, "mobile"=>$mobile, "password"=>md5($password)), "POST", "users.json");
+    {		
+		$data = $this->call(array("user" => array("email"=>$email, "username"=>$username, "name"=>$name, "surname"=>$surname, "mobile"=>$mobile, "password"=>md5($password))), "POST", "users.json");
 		return $data;
     }
 
@@ -1641,8 +1696,323 @@ class Api
 		return new User($data, $this);
     }
 
+    /**
+     * This method will return a list of sensors with their metatags. 
+     * 
+     * @access public
+     * @param string details To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used.
+     * @param string namespace Find metatags within the given namespace. If not given “default” is assumed as the namepace.
+     * @param string sensor_owner “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed
+     * @param int page This parameter specifies which page of the results must be retrieved. The page offset starts at 0.
+     * @param int per_page This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items and the default amount is 100 items.
+     * @return mixed A sensor array with an array of metatags which consists of a key and an array of strings and/or integers
+     */
+    public function listMetaTags($details = NULL, $namespace = NULL, $sensor_owner = NULL, $page = -1, $per_page = -1)
+    {
+    	$parameters = "";
+    	if($per_page != -1)
+    		$parameters .= "?per_page=".$per_page;
+    	else 
+    		$parameters .= "?per_page=1000";
+    	if($details != NULL)
+    		$parameters .= "&details=".$details;
+    	if($namespace != NULL)
+    		$parameters .= "&namespace=".$namespace;
+    	if($sensor_owner != NULL)
+    		$parameters .= "&sensor_owner=".$sensor_owner;
+    	if($page != -1)
+    		$parameters .= "&page=".$page;
+    	
     
+    	$data = $this->call(array(), "GET", "sensors/metatags.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'sensors'};    	
+    	$sensorArray = new ArrayObject();
+    	for($i = 0; $i<count($data);$i++){
+    		$sensorArray->append(new Sensor($data[$i], $this));
+    	}
+    	return $sensorArray;    	
+    }
     
+    /**
+     * List sensor tags within a group
+     * 
+     * This method will return a list of sensors with their metatags in the given group.
+     * 
+     * @access public
+     * @param string details To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used.
+     * @param string namespace Find metatags within the given namespace. If not given “default” is assumed as the namepace.
+     * @param string sensor_owner “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed
+     * @param int page This parameter specifies which page of the results must be retrieved. The page offset starts at 0.
+     * @param int per_page This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items 
+     */
+    public function listGroupSensorTags($group_id, $details = NULL, $namespace = NULL, $sensor_owner = NULL, $page = -1, $per_page = -1)    
+    {
+    	
+    	$parameters = "";
+    	if($per_page != -1)
+    		$parameters .= "?per_page=".$per_page;
+    	else 
+    		$parameters .= "?per_page=1000";
+    	if($details != NULL)
+    		$parameters .= "&details=".$details;
+    	if($namespace != NULL)
+    		$parameters .= "&namespace=".$namespace;
+    	if($sensor_owner != NULL)
+    		$parameters .= "&sensor_owner=".$sensor_owner;
+    	if($page != -1)
+    		$parameters .= "&page=".$page;
+    
+    	
+    	$data = $this->call(array(), "GET", "groups/$group_id/sensors/metatags.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'sensors'};
+    	$sensorArray = new ArrayObject();
+    	for($i = 0; $i<count($data);$i++){
+    		$sensorArray->append(new Sensor($data[$i], $this));
+    	}
+    	return $sensorArray;
+    }
+    
+    /**
+     * List sensor tags
+     * 
+     * This method will return a list of metatags attached to the given sensor.
+     * 
+     * @access public     * 
+     * @param int sensor_id The sensor identifier
+     * @param string namespace Find metatags attached to given namespace. If not given “default” is assumed as the namespace.
+     * @return mixed An array of metatags which consists of a key and an array of strings and/or integers
+     */
+    public function listSensorTags($sensor_id, $namespace = NULL)
+    {
+    	$parameters = "";
+    	if($namespace != NULL)
+    		$parameters .= "?namespace=".$namespace;
+    	$data = $this->call(array(), "GET", "sensors/$sensor_id/metatags.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'metatags'};
+    	return $data;    	
+    }
+    
+    /**
+     * Replacing sensor tags
+     * 
+     * This method will persist a list of metatags to the given sensor. 
+     * All metatags that are not mentioned in the uploaded list are removed from the sensor. 
+     * Metatag names can have a maximum length of 32 (ASCII) characters. 
+     * The metatag value can have a maximum length of 100 (UTF-8) characters. 
+     * For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. 
+     * Currently this is set on 30.
+     * 
+     * @access public
+     * @param int sensor_id The sensor identifier
+     * @param array metatags an array with the metatags 
+     * @param string namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace.  
+     */
+    public function replaceSensorTags($sensor_id, $metatags, $namespace = NULL)
+    {    
+    	$parameters = "";
+    	if($namespace != NULL)
+    		$parameters .= "?namespace=".$namespace;
+    	$data = $this->call($metatags, "PUT", "sensors/$sensor_id/metatags.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'metatags'};
+    	return $data;
+    }
+    
+    /**
+     * Modifying sensor tags
+     * 
+     * This method will persist a list of metatags. 
+     * Existing metatags not mentioned in the uploaded list will be kept. 
+     * Metatag names can have a maximum length of 32 (ASCII) characters. 
+     * The metatag value can have a maximum length of 100 (UTF-8) characters. 
+     * For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. 
+     * Currently this is set on 30. For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. 
+     * Currently this is set on 30.
+     *  
+     * @access public
+     * @param int sensor_id The sensor identifier
+     * @param array metatags an array with the metatags 
+     * @param string namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace.     
+     */
+    public function updateSensorTags($sensor_id, $metatags, $namespace = NULL)
+    {    
+    	$parameters = "";
+    	if($namespace != NULL)
+    		$parameters .= "?namespace=".$namespace;
+    	$data = $this->call($metatags, "POST", "sensors/$sensor_id/metatags.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'metatags'};
+    	return $data;
+    }
+    
+    /**
+     * Delete sensor tags
+     * 
+     * This method will delete all the metatags for the given sensor in the given namespace
+     * 
+     * @access public
+     * @param int sensor_id The sensor identifier
+     * @param array metatags an array with the metatags 
+     * @param string namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace.  
+     */
+    public function deleteSensorTags($sensor_id, $namespace = NULL)
+    {
+    	$parameters = "";
+    	if($namespace != NULL)
+    		$parameters .= "?namespace=".$namespace;
+    	$data = $this->call(array(), "DELETE", "sensors/$sensor_id/metatags.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'metatags'};
+    	return $data;
+    }
+    
+    /**
+     * Finding sensors by metatags
+     *
+     * Via this method a list of sensors can be selected based on a set of conditions.
+     * Supported operators are “equal”, “in”, and “is_set”. All string comparisons are case INsensitive.
+     * Currently supported are two types of statement groups. The first is "metatag_statement_groups" which allows to find sensors based on their metatags.
+     * The second is "sensor_statement_groups" which allows to find sensors based on their own properties.
+     * Supported properties are id, name, type, device_type, data_type_id, pager_type, display_name and use_data_storage.
+     *
+     * @access public
+     * @param int group_id The group identifier
+     * @param array filter {"filter":{"metatag_statement_groups":[[{"metatag_name":"greenhouse_number","operator":"equal","value":"1"},{"metatag_name":"greenhouse_number","operator":"equal","value":"2"}],[{"metatag_name":"color","operator":"equal","value":"green"}]],"sensor_statement_groups":[[{"sensor_property":"id","operator":"in","value":"1,2,3,4,5,6,7,8,9,10"}]]}} The filter array
+     * @param string details (optional) To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used.
+     * @param string namespace (optional) Find metatags within the given namespace. If not given “default” is assumed as the namepace.
+     * @param string sensor_owner (optional) “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed
+     * @param int page (optional) This parameter specifies which page of the results must be retrieved. The page offset starts at 0.
+     * @param int per_page (optional) This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items
+     */
+    public function findSensorsByTags($filter, $details = NULL, $namespace = NULL, $sensor_owner = NULL, $page = -1, $per_page = -1)
+    {
+    	$parameters = "";
+    	if($per_page != -1)
+    		$parameters .= "?per_page=".$per_page;
+    	else
+    		$parameters .= "?per_page=1000";
+    	if($details != NULL)
+    		$parameters .= "&details=".$details;
+    	if($namespace != NULL)
+    		$parameters .= "&namespace=".$namespace;
+    	if($sensor_owner != NULL)
+    		$parameters .= "&sensor_owner=".$sensor_owner;
+    	if($page != -1)
+    		$parameters .= "&page=".$page;
+    	 
+    	 
+    	$data = $this->call($filter, "POST", "sensors/find.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'sensors'};
+    	$sensorArray = new ArrayObject();
+    	for($i = 0; $i<count($data);$i++){
+    		$sensorArray->append(new Sensor($data[$i], $this));
+    	}
+    	return $sensorArray;
+    }
+    
+    /**
+     * Finding sensors by metatags
+     * 
+     * Via this method a list of sensors can be selected based on a set of conditions. 
+     * Supported operators are “equal”, “in”, and “is_set”. All string comparisons are case INsensitive. 
+     * Currently supported are two types of statement groups. The first is "metatag_statement_groups" which allows to find sensors based on their metatags. 
+     * The second is "sensor_statement_groups" which allows to find sensors based on their own properties. 
+     * Supported properties are id, name, type, device_type, data_type_id, pager_type, display_name and use_data_storage.
+     *
+     * @access public
+     * @param int group_id The group identifier
+     * @param array filter {"filter":{"metatag_statement_groups":[[{"metatag_name":"greenhouse_number","operator":"equal","value":"1"},{"metatag_name":"greenhouse_number","operator":"equal","value":"2"}],[{"metatag_name":"color","operator":"equal","value":"green"}]],"sensor_statement_groups":[[{"sensor_property":"id","operator":"in","value":"1,2,3,4,5,6,7,8,9,10"}]]}} The filter array
+     * @param string details (optional) To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used.
+     * @param string namespace (optional) Find metatags within the given namespace. If not given “default” is assumed as the namepace.
+     * @param string sensor_owner (optional) “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed
+     * @param int page (optional) This parameter specifies which page of the results must be retrieved. The page offset starts at 0.
+     * @param int per_page (optional) This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items 
+     */
+    public function findSensorsByTagsInGroup($group_id, $filter, $details = NULL, $namespace = NULL, $sensor_owner = NULL, $page = -1, $per_page = -1)    
+    {    	
+    	$parameters = "";
+    	if($per_page != -1)
+    		$parameters .= "?per_page=".$per_page;
+    	else 
+    		$parameters .= "?per_page=1000";
+    	if($details != NULL)
+    		$parameters .= "&details=".$details;
+    	if($namespace != NULL)
+    		$parameters .= "&namespace=".$namespace;
+    	if($sensor_owner != NULL)
+    		$parameters .= "&sensor_owner=".$sensor_owner;
+    	if($page != -1)
+    		$parameters .= "&page=".$page;
+    	
+    	
+    	$data = $this->call($filter, "POST", "groups/$group_id/sensors/find.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'sensors'};
+    	$sensorArray = new ArrayObject();
+    	for($i = 0; $i<count($data);$i++){
+    		$sensorArray->append(new Sensor($data[$i], $this));
+    	}
+    	return $sensorArray;
+    }
+    
+    /**
+     * Find distinct metatag values by metatag name
+     * 
+     * Via this method a list of distinct metatag values can be retrieved that have the given metatag name.
+     * 
+     * @access public
+     * @param string metatag_name The name of the metatag        
+     * @param string namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace.  
+     * @return array The metatag values
+     */
+    public function findDistinctMetatagValues($metatag_name, $namespace = NULL)
+    {
+    	$parameters = "";
+    	if($namespace != NULL)
+    		$parameters .= "?namespace=".$namespace;
+    	$data = $this->call(array(), "GET", "metatag_name/$metatag_name/distinct_values.json".$parameters);
+    	if(isset($data->{'error'}))
+    		die($data->{'error'});
+    	$data = @$data->{'distinct_values'};
+    	return $data;
+    }
+    
+    /**
+     * NOT yet implemented
+     * 
+     * Find distinct metatag values by metatag name and filter
+     *
+     * Via this method a list of distinct metatag values can be retrieved that have the given metatag name.
+     *
+     * @access public
+     * @param string metatag_name The name of the metatag
+     * @param array filter {"filter":{"metatag_statement_groups":[[{"metatag_name":"greenhouse_number","operator":"equal","value":"1"},{"metatag_name":"greenhouse_number","operator":"equal","value":"2"}],[{"metatag_name":"color","operator":"equal","value":"green"}]],"sensor_statement_groups":[[{"sensor_property":"id","operator":"in","value":"1,2,3,4,5,6,7,8,9,10"}]]}} The filter array
+     * @param string namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace.
+     * @return array The metatag values
+     */
+     public function findDistinctMetatagValuesByFilter($metatag_name, $filter, $namespace = NULL)
+    {
+		//     	$parameters = "";
+		//     	if($namespace != NULL)
+		//     		$parameters .= "?namespace=".$namespace;
+		//     	$data = $this->call($filter, "POST", "metatag_name/$metatag_name/distinct_values.json".$parameters);
+		//     	if(isset($data->{'error'}))
+		//     		die($data->{'error'});
+		//     	$data = @$data->{'distinct_metatag_values'};
+		//     	return $data;
+     }
     
 } /* end of class Api */
 

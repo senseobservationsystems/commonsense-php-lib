@@ -98,6 +98,12 @@ class Sensor
      * @var User
      */
     private $owner = null;
+    
+    /**
+     * @access private
+     * @var array
+     */
+    private $metatags = null;
 	
 	
 	
@@ -105,20 +111,22 @@ class Sensor
 
 	public function Sensor(stdClass $data, Api $api){
 		$this->id = $data->{'id'};
-		$this->name = $data->{'name'};
-		$this->type = $data->{'type'};
-		$this->device_type = $data->{'device_type'};
+		$this->name = @$data->{'name'};
+		$this->type = @$data->{'type'};
+		$this->device_type = @$data->{'device_type'};
 		if(isset($data->{'data_type_id'}))
-			$this->data_type_id = $data->{'data_type_id'};
+			$this->data_type_id = @$data->{'data_type_id'};
 		if(isset($data->{'device'}))
-			$this->device = new Device($data->{'device'}, $api);
+			$this->device = new Device(@$data->{'device'}, $api);
 		if(isset($data->{'owner'}))
-			$this->owner = new User($data->{'owner'}, $api);
+			$this->owner = new User(@$data->{'owner'}, $api);
 					 
-		$this->pager_type = $data->{'pager_type'};
-		$this->display_name = $data->{'display_name'};
-		$this->data_type = $data->{'data_type'};
-		$this->data_structure = $data->{'data_structure'};		
+		$this->pager_type = @$data->{'pager_type'};
+		$this->display_name = @$data->{'display_name'};
+		$this->data_type = @$data->{'data_type'};
+		$this->data_structure = @$data->{'data_structure'};
+		if(isset($data->{'metatags'}))
+			$this->metatags = $data->{'metatags'};	
 		$this->api = $api;
 	}
 	
@@ -315,9 +323,85 @@ class Sensor
     {
 		return $this->api->disconnectFromService($this->getID(), $serviceID);
     }
+    
+    /**
+     * Return metatags
+     * 
+     * @access public
+     * @return array An array with the metatags
+     */
+    public function getMetatags()
+    {
+    	return $this->metatags;
+    }
 	
+    /**
+     * List sensor tags
+     *
+     * This method will return a list of metatags attached to the given sensor.
+     *
+     * @access public     
+     * @return mixed An array of metatags which consists of a key and an array of strings and/or integers
+     */
+    public function listTags($namespace = NULL)
+    {
+    	return $this->api->listSensorTags($this->getID(), $namespace);
+    }
 	
+    /**
+     * Replacing sensor tags
+     *
+     * This method will persist a list of metatags to the given sensor.
+     * All metatags that are not mentioned in the uploaded list are removed from the sensor.
+     * Metatag names can have a maximum length of 32 (ASCII) characters.
+     * The metatag value can have a maximum length of 100 (UTF-8) characters.
+     * For now we impose a limit on the amount of metatags attached to a sensor in a single namespace.
+     * Currently this is set on 30.
+     *
+     * @access public     
+     * @param array metatags an array with the metatags
+     * @param string namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace.
+     *
+     */
+    public function replaceTags($metatags, $namespace = NULL)
+    {
+    	return $this->api->replaceSensorTags($this->getID(), $metatags, $namespace);
+    }
+    
+    /**
+     * Modifying sensor tags
+     *
+     * This method will persist a list of metatags.
+     * Existing metatags not mentioned in the uploaded list will be kept.
+     * Metatag names can have a maximum length of 32 (ASCII) characters.
+     * The metatag value can have a maximum length of 100 (UTF-8) characters.
+     * For now we impose a limit on the amount of metatags attached to a sensor in a single namespace.
+     * Currently this is set on 30. For now we impose a limit on the amount of metatags attached to a sensor in a single namespace.
+     * Currently this is set on 30.
+     *
+     * @access public     
+     * @param array metatags an array with the metatags
+     * @param string namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace.
+     */
+    public function updateTags($metatags, $namespace = NULL)
+    {
+    	return $this->api->updateSensorTags($this->getID(), $metatags, $namespace);
+    }
 	
+    /**
+     * Delete sensor tags
+     *
+     * This method will delete all the metatags for the given sensor in the given namespace
+     *
+     * @access public
+     * @param array metatags an array with the metatags
+     * @param string namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace.
+     */
+    public function deleteTags($namespace = NULL)
+    {
+    	return $this->api->deleteSensorTags($this->getID(), $namespace);
+    }
+    
 } /* end of class Sensor */
 
 ?>
