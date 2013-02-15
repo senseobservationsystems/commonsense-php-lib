@@ -11,6 +11,8 @@ var searchData=
   ['deleteruser',['deleterUser',['../class_api.html#afd88af2001dd8188a96f11230c0f68d1',1,'Api']]],
   ['deletesensor',['deleteSensor',['../class_api.html#a43b974c0455f67b6c3daf1b696d79a19',1,'Api']]],
   ['deletesensordata',['deleteSensorData',['../class_api.html#a4175f33f7fed53ffe2bd09767c8eb829',1,'Api']]],
+  ['deletesensortags',['deleteSensorTags',['../class_api.html#aa3d4659d812a7ea0bdd85a53e30eed9b',1,'Api']]],
+  ['deletetags',['deleteTags',['../class_sensor.html#a5ba38bddf9c0ff76e6475564856db045',1,'Sensor']]],
   ['device',['Device',['../class_device.html#adf0972c4b94db21efc2e8bcf2224a1bc',1,'Device']]],
   ['disconnectfromservice',['disconnectFromService',['../class_api.html#ad64e4c150081e812c007f954f93d0ee1',1,'Api\disconnectFromService()'],['../class_sensor.html#ad14ae9bb9830dac88c35632aa6a62b75',1,'Sensor\disconnectFromService()']]],
   ['disconnectsensor',['disconnectSensor',['../class_service.html#ae3bda62ed08f1069640faddeec5886a2',1,'Service']]]

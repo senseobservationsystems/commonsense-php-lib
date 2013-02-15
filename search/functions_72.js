@@ -16,6 +16,8 @@ var searchData=
   ['removesensor',['removeSensor',['../class_environment.html#a78f629347068dbbf06e61dfc2e46ad76',1,'Environment']]],
   ['removesensorfromenvironment',['removeSensorFromEnvironment',['../class_api.html#a358e5bd61143ca96e10d1c1ab52c7ff8',1,'Api']]],
   ['removesharreduser',['removeSharredUser',['../class_api.html#a0a78a02f1bd3f36ed9db82f116b30402',1,'Api\removeSharredUser()'],['../class_sensor.html#ae2372bba232eaa747e76d93434fd8688',1,'Sensor\removeSharredUser()']]],
+  ['replacesensortags',['replaceSensorTags',['../class_api.html#ad89c474088f7d897d3d7d730acee4b8f',1,'Api']]],
+  ['replacetags',['replaceTags',['../class_sensor.html#acbc9d5ffae3e54e2bc28b850090734b0',1,'Sensor']]],
   ['reportproblem',['reportProblem',['../class_o_auth_provider.html#a51845a4b5acad5a122e6f3fca178a1c2',1,'OAuthProvider']]],
   ['reportsto',['reportsTo',['../class_cache.html#aeb6a503bb84be74c23158bac54c730a3',1,'Cache\reportsTo()'],['../class_apc_cache_provider.html#a65d14f0c84c76f76d35c3e25127e2ab3',1,'ApcCacheProvider\reportsTo()'],['../class_memcache_cache_provider.html#a42d05c62d0e974d3593e23c1fa5a7f5e',1,'MemcacheCacheProvider\reportsTo()'],['../class_memcached_cache_provider.html#a5539779ee38789c9228edfc1c40739f7',1,'MemcachedCacheProvider\reportsTo()'],['../class_sqlite_cache_provider.html#a96c0c25d585aa18f0d2a90ec7ffe4a7a',1,'SqliteCacheProvider\reportsTo()']]],
   ['requesttokenurl',['requestTokenURL',['../class_commonsense_oauth_client.html#a019d4d786c8a68a88b4f1b795185e539',1,'CommonsenseOauthClient']]],

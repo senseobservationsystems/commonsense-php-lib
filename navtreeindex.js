@@ -118,6 +118,8 @@ var NAVTREEINDEX =
 "_service_8php.html":[2,0,25],
 "_trigger_8php.html":[2,0,26],
 "_user_8php.html":[2,0,27],
+"_test_metatags_8php.html":[2,0,28],
 "globals.html":[2,1,0],
-"globals_func.html":[2,1,1]
+"globals_func.html":[2,1,1],
+"globals_vars.html":[2,1,2]
 };

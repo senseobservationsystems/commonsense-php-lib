@@ -95,7 +95,7 @@ This is the complete list of members for <a class="el" href="class_api.html">Api
   <tr class="memlist"><td><a class="el" href="class_api.html#a4e660a01c38cd70426ba767f74d27ce5">addSharredUser</a>($sensorID, $userID, $username)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a36f4b12b683e8a8b99a8dc8019b9caaa">addToParentDevice</a>($sensorID, $deviceID, $type, $uuid)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a23bc3ed3ddc8020a16a0e9aad62fd8fa">addUserToGroup</a>($id, $userID, $userName)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_api.html#a917fe0a093eced0400d934843d9f05c8">api</a>()</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#ab218979bd0c4df29f0b4f65c6e7a8b80">api</a>($server=&quot;&quot;)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#acbb28344a60b5ef3e9d3bc7fb8a75ba1">connectSensor</a>($sensorID, $connectedSensorID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a905d470f566c596d49c2ec2dac8efff6">createGroup</a>($email, $name, $username, $password)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a7efe09f443c7b89730fb4afe856a1f6d">createGroupFromArray</a>($data)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
@@ -110,7 +110,12 @@ This is the complete list of members for <a class="el" href="class_api.html">Api
   <tr class="memlist"><td><a class="el" href="class_api.html#afd88af2001dd8188a96f11230c0f68d1">deleterUser</a>($userID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a43b974c0455f67b6c3daf1b696d79a19">deleteSensor</a>($id)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a4175f33f7fed53ffe2bd09767c8eb829">deleteSensorData</a>($sensorID, $dataID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#aa3d4659d812a7ea0bdd85a53e30eed9b">deleteSensorTags</a>($sensor_id, $namespace=NULL)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#ad64e4c150081e812c007f954f93d0ee1">disconnectFromService</a>($sensorID, $serviceID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#ad0466420e297b96a49dffa7b9be17070">findDistinctMetatagValues</a>($metatag_name, $namespace=NULL)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#aa427509a4729d2eac4508be6d12f1fb1">findDistinctMetatagValuesByFilter</a>($metatag_name, $filter, $namespace=NULL)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#ae15b604e4a6d9df9494ee6d0431ee615">findSensorsByTags</a>($filter, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=-1, $per_page=-1)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#afbe6765eb4421c2bc73870d86f67b14d">findSensorsByTagsInGroup</a>($group_id, $filter, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=-1, $per_page=-1)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#aa2201c8082c0aa09b1e149fd38acc404">getErrorLog</a>()</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a70ee52208076fbb99044b6c929236d26">getFileLocation</a>($sensorID, $dataID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a2011772bf96f85d4659ec2a026aadefe">getSessionId</a>()</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
@@ -123,10 +128,13 @@ This is the complete list of members for <a class="el" href="class_api.html">Api
   <tr class="memlist"><td><a class="el" href="class_api.html#ae0c7c9923b9935a18de72f9c0b09d0a2">listEnvironments</a>()</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a85b6be8e64c3f349b3b3a6bf31dc3849">listEnvironmentSensors</a>($id)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a85a9196905eaee6f03b2e50730f0a547">listGroups</a>()</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#ae0d2fbe867ce63d842060a14c893909b">listGroupSensorTags</a>($group_id, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=-1, $per_page=-1)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#a1b87af8ec3d46c64c24d4a85623c5fea">listMetaTags</a>($details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=-1, $per_page=-1)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a9529bcea90474dd1d4f766c120863d25">listNotifications</a>()</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a69bf552b2717ac89a94d24c7dfa3edf4">listRunningServices</a>($sensorID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a5584604061a8be6161a4f0dd4cf63995">listSensorData</a>($id, $page=-1, $perPage=-1, $startDate=0, $endDate=0, $date=0, $next=0, $last=0, $sort= 'DESC', $total=NULL, $interval=0)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="class_api.html#a9a0f4b42604737ec4353e2f7815d6dc5">listSensors</a>($page, $perPage, $sharred, $owned, $physical)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#a1c37cfb7ddf5b3f5e42ea5bdfdd96c0c">listSensors</a>($page, $perPage, $shared, $owned, $physical, $group_id=-1)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#a61c86dee07c040ef5ae74639af0ce765">listSensorTags</a>($sensor_id, $namespace=NULL)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#aa93ce3adc9c254cbf11d7fcb6273086c">listSensorTriggers</a>($sensor_id)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a418812c5ef0aae2a078e822a717e0fc7">listServiceMethods</a>($sensorID, $serviceID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#ae826edc21489d5d866763574624ee40a">listTriggers</a>()</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
@@ -147,6 +155,7 @@ This is the complete list of members for <a class="el" href="class_api.html">Api
   <tr class="memlist"><td><a class="el" href="class_api.html#ac13408e5a914e6ba522e59f07266cd02">removeFromParentDevice</a>($sensorID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a358e5bd61143ca96e10d1c1ab52c7ff8">removeSensorFromEnvironment</a>($environmentID, $sensorID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a0a78a02f1bd3f36ed9db82f116b30402">removeSharredUser</a>($sensorID, $userID)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#ad89c474088f7d897d3d7d730acee4b8f">replaceSensorTags</a>($sensor_id, $metatags, $namespace=NULL)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a15db85fc44e56c87368b209d1f9bb2b5">runServiceGetMethod</a>($sensorID, $serviceID, $method)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a003c32302124fd3d8a074e216d0f5c04">runServiceSetMethod</a>($sensorID, $serviceID, $method, $parameters)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#afa14b96c747734c8d445ed929487a579">setSessionId</a>($sessionid)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
@@ -155,6 +164,7 @@ This is the complete list of members for <a class="el" href="class_api.html">Api
   <tr class="memlist"><td><a class="el" href="class_api.html#a0c1d852e16e88f6184d9d42b26376967">updateGroup</a>($id, $email, $username, $password, $name)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a2699f6290650f910b4c4d45bfbf2ad81">updateSensorDescription</a>($id, $name, $displayName, $deviceType, $pagerType, $dataType, $dataStructure)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#aa07d41e8ccf8c66a74fe153ffb640720">updateSensorSpecificData</a>($id, $value, $date)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_api.html#a4e4468863f73d6b983a6710c27179dba">updateSensorTags</a>($sensor_id, $metatags, $namespace=NULL)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a703de93b410db6278ccdec2bf8452658">updateSensorTrigger</a>($sensor_id, $trigger_id, $active=0, $last_sensor_data_value=&quot;&quot;, $last_sensor_data_date=0)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a159df2aac71f78ca248422ffce517247">updateUser</a>($userID, $email, $username, $name, $surname, $mobile, $password)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_api.html#a26b2366141cd41394bfc3a24e2f8cdd2">uploadSensorData</a>($json)</td><td><a class="el" href="class_api.html">Api</a></td><td></td></tr>
@@ -178,7 +188,7 @@ This is the complete list of members for <a class="el" href="class_api.html">Api
   <div id="nav-path" class="navpath">
     <ul>
 
-    <li class="footer">Generated on Mon Sep 24 2012 15:12:15 for CommonSense PHP API Library by
+    <li class="footer">Generated on Fri Feb 15 2013 11:02:18 for CommonSense PHP API Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

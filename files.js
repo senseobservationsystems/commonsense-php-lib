@@ -27,5 +27,6 @@ var files =
     [ "objects/Sensor.php", "_sensor_8php.html", null ],
     [ "objects/Service.php", "_service_8php.html", null ],
     [ "objects/Trigger.php", "_trigger_8php.html", null ],
-    [ "objects/User.php", "_user_8php.html", null ]
+    [ "objects/User.php", "_user_8php.html", null ],
+    [ "test/TestMetatags.php", "_test_metatags_8php.html", "_test_metatags_8php" ]
 ];

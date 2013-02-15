@@ -10,5 +10,6 @@ var searchData=
   ['permission_5funknown',['PERMISSION_UNKNOWN',['../class_o_auth_error.html#a01f3f64cfbbb05042aa85f440262356a',1,'OAuthError']]],
   ['persistnamedruns',['persistNamedRuns',['../class_library.html#a7cdc7a5ec6f3c29017b243fbbd90d620',1,'Library']]],
   ['php_5fextension',['PHP_EXTENSION',['../class_library.html#ae1a9858e9dadebfee010b83bb7c57791',1,'Library']]],
-  ['post',['post',['../class_commonsense_oauth_client.html#a319dd78a646719485e74727695daf7af',1,'CommonsenseOauthClient']]]
+  ['post',['post',['../class_commonsense_oauth_client.html#a319dd78a646719485e74727695daf7af',1,'CommonsenseOauthClient']]],
+  ['printsensors',['printSensors',['../_test_metatags_8php.html#a8b74a6251464f91271aec4a632c16d8d',1,'TestMetatags.php']]]
 ];

@@ -91,19 +91,25 @@ This is the complete list of members for <a class="el" href="class_sensor.html">
   <tr class="memlist"><td><a class="el" href="class_sensor.html#ac5e480dbaf748c30117591af8b9f0484">connectSensor</a>($connectedSensorID)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#a93e9ea5a9840fb8216a56d7331ab99fa">delete</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#af303b39869ccb277c07c2a9bc228e70c">deleteData</a>($dataID)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_sensor.html#a5ba38bddf9c0ff76e6475564856db045">deleteTags</a>($namespace=NULL)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#ad14ae9bb9830dac88c35632aa6a62b75">disconnectFromService</a>($serviceID)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#a5276420b70d9aaf11703168a5bfa4154">getData</a>($page, $perPage, $startDate, $endDate, $date, $next, $last, $sort, $total, $interval=0)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#a4c141e8d836968278be98f1447b18cd5">getDevice</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#af3c093874d40a896682e59ba25515677">getDeviceType</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#aaf1ac16aa75bc95b6f596bd70fca8a72">getEnvironment</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#aa961f8e6563dec8d4277a0356df8f622">getID</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_sensor.html#a5df12a66a9bbff825fbb3a528cf9f47b">getMetatags</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#ac8d97efcd76491c068306dc70124db68">getMyDevice</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#ad1fc5a2d89333a18ce46a4163c083a3e">getName</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_sensor.html#aee2c2c9cbdf05da0625ebe5da19f11fb">getOwner</a>()</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_sensor.html#a492615b21da6e0b77e20b5b2fb62bdbf">listTags</a>($namespace=NULL)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#acc669324aa133fed47de73b37f7b1d01">removeConnectedSensor</a>($connectedSensor)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#ae2372bba232eaa747e76d93434fd8688">removeSharredUser</a>($userID)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_sensor.html#acbc9d5ffae3e54e2bc28b850090734b0">replaceTags</a>($metatags, $namespace=NULL)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#a61cf8f4eeeba72ce4d76ffbd79057e3a">Sensor</a>(stdClass $data, Api $api)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#a2cff554b41dafb0be8aaaeede1431841">update</a>($name, $displayName, $deviceType, $pagerType, $dataType, $dataStructure)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#a0825a6863417a35235880a078be7069d">updateData</a>($value, $date)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_sensor.html#a7336a2e2d307943fd56dc20d7955b041">updateTags</a>($metatags, $namespace=NULL)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_sensor.html#aaff1f8363e01ce9763da214d639ca342">uploadDataAsJson</a>($json)</td><td><a class="el" href="class_sensor.html">Sensor</a></td><td></td></tr>
 </table></div><!-- contents -->
 <!-- window showing the filter options -->
@@ -124,7 +130,7 @@ This is the complete list of members for <a class="el" href="class_sensor.html">
   <div id="nav-path" class="navpath">
     <ul>
 
-    <li class="footer">Generated on Mon Sep 24 2012 15:12:15 for CommonSense PHP API Library by
+    <li class="footer">Generated on Fri Feb 15 2013 11:02:18 for CommonSense PHP API Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

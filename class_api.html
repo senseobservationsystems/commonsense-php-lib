@@ -93,7 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a917fe0a093eced0400d934843d9f05c8">api</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#ab218979bd0c4df29f0b4f65c6e7a8b80">api</a> ($server=&quot;&quot;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a2011772bf96f85d4659ec2a026aadefe">getSessionId</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#afa14b96c747734c8d445ed929487a579">setSessionId</a> ($sessionid)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#aa2201c8082c0aa09b1e149fd38acc404">getErrorLog</a> ()</td></tr>
@@ -116,7 +116,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#ad97dfb4635d68c899938f92f3f464b1a">deleteGroup</a> ($id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a1d916e6ccb04aa5f9d01c50603ca01c4">listUsersOfGroup</a> ($id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a23bc3ed3ddc8020a16a0e9aad62fd8fa">addUserToGroup</a> ($id, $userID, $userName)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a9a0f4b42604737ec4353e2f7815d6dc5">listSensors</a> ($page, $perPage, $sharred, $owned, $physical)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a1c37cfb7ddf5b3f5e42ea5bdfdd96c0c">listSensors</a> ($page, $perPage, $shared, $owned, $physical, $group_id=-1)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a1f50f63f1edff7f49e48922bf637abce">createSensor</a> ($name, $displayName, $deviceType, $pagerType, $dataType, $dataStructure)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a73a44710b87196d14c1649c941438d4c">createTrigger</a> ($name, $expression, $inactivity=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a3db84d44c424f05f0d196c6f7417fbe1">addSensorTrigger</a> ($sensor_id, $trigger_id)</td></tr>
@@ -165,6 +165,16 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a159df2aac71f78ca248422ffce517247">updateUser</a> ($userID, $email, $username, $name, $surname, $mobile, $password)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#afd88af2001dd8188a96f11230c0f68d1">deleterUser</a> ($userID)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#af51445f33dcac886937378c8e9e39643">readCurrentUser</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a1b87af8ec3d46c64c24d4a85623c5fea">listMetaTags</a> ($details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=-1, $per_page=-1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#ae0d2fbe867ce63d842060a14c893909b">listGroupSensorTags</a> ($group_id, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=-1, $per_page=-1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a61c86dee07c040ef5ae74639af0ce765">listSensorTags</a> ($sensor_id, $namespace=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#ad89c474088f7d897d3d7d730acee4b8f">replaceSensorTags</a> ($sensor_id, $metatags, $namespace=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#a4e4468863f73d6b983a6710c27179dba">updateSensorTags</a> ($sensor_id, $metatags, $namespace=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#aa3d4659d812a7ea0bdd85a53e30eed9b">deleteSensorTags</a> ($sensor_id, $namespace=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#ae15b604e4a6d9df9494ee6d0431ee615">findSensorsByTags</a> ($filter, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=-1, $per_page=-1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#afbe6765eb4421c2bc73870d86f67b14d">findSensorsByTagsInGroup</a> ($group_id, $filter, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=-1, $per_page=-1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#ad0466420e297b96a49dffa7b9be17070">findDistinctMetatagValues</a> ($metatag_name, $namespace=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_api.html#aa427509a4729d2eac4508be6d12f1fb1">findDistinctMetatagValuesByFilter</a> ($metatag_name, $filter, $namespace=NULL)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>sense dashboard - <a class="el" href="class_8_api_8php.html">class.Api.php</a></p>
@@ -519,14 +529,15 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a917fe0a093eced0400d934843d9f05c8"></a><!-- doxytag: member="Api::api" ref="a917fe0a093eced0400d934843d9f05c8" args="()" -->
+<a class="anchor" id="ab218979bd0c4df29f0b4f65c6e7a8b80"></a><!-- doxytag: member="Api::api" ref="ab218979bd0c4df29f0b4f65c6e7a8b80" args="($server=&quot;&quot;)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_api.html#a917fe0a093eced0400d934843d9f05c8">Api::api</a> </td>
+          <td class="memname"><a class="el" href="class_api.html#ab218979bd0c4df29f0b4f65c6e7a8b80">Api::api</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>server</em> = <code>&quot;&quot;</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1064,6 +1075,44 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa3d4659d812a7ea0bdd85a53e30eed9b"></a><!-- doxytag: member="Api::deleteSensorTags" ref="aa3d4659d812a7ea0bdd85a53e30eed9b" args="($sensor_id, $namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#aa3d4659d812a7ea0bdd85a53e30eed9b">Api::deleteSensorTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>sensor_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Delete sensor tags</p>
+<p>This method will delete all the metatags for the given sensor in the given namespace</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>sensor_id The sensor identifier </td></tr>
+    <tr><td class="paramname">array</td><td>metatags an array with the metatags </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="ad64e4c150081e812c007f954f93d0ee1"></a><!-- doxytag: member="Api::disconnectFromService" ref="ad64e4c150081e812c007f954f93d0ee1" args="($sensorID, $serviceID)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1098,6 +1147,228 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad0466420e297b96a49dffa7b9be17070"></a><!-- doxytag: member="Api::findDistinctMetatagValues" ref="ad0466420e297b96a49dffa7b9be17070" args="($metatag_name, $namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#ad0466420e297b96a49dffa7b9be17070">Api::findDistinctMetatagValues</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>metatag_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Find distinct metatag values by metatag name</p>
+<p>Via this method a list of distinct metatag values can be retrieved that have the given metatag name.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>metatag_name The name of the metatag </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array The metatag values </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa427509a4729d2eac4508be6d12f1fb1"></a><!-- doxytag: member="Api::findDistinctMetatagValuesByFilter" ref="aa427509a4729d2eac4508be6d12f1fb1" args="($metatag_name, $filter, $namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#aa427509a4729d2eac4508be6d12f1fb1">Api::findDistinctMetatagValuesByFilter</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>metatag_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>filter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>NOT yet implemented</p>
+<p>Find distinct metatag values by metatag name and filter</p>
+<p>Via this method a list of distinct metatag values can be retrieved that have the given metatag name.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>metatag_name The name of the metatag </td></tr>
+    <tr><td class="paramname">array</td><td>filter {"filter":{"metatag_statement_groups":[[{"metatag_name":"greenhouse_number","operator":"equal","value":"1"},{"metatag_name":"greenhouse_number","operator":"equal","value":"2"}],[{"metatag_name":"color","operator":"equal","value":"green"}]],"sensor_statement_groups":[[{"sensor_property":"id","operator":"in","value":"1,2,3,4,5,6,7,8,9,10"}]]}} The filter array </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array The metatag values </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae15b604e4a6d9df9494ee6d0431ee615"></a><!-- doxytag: member="Api::findSensorsByTags" ref="ae15b604e4a6d9df9494ee6d0431ee615" args="($filter, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=&#45;1, $per_page=&#45;1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#ae15b604e4a6d9df9494ee6d0431ee615">Api::findSensorsByTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>filter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>details</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>sensor_owner</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>page</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>per_page</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Finding sensors by metatags</p>
+<p>Via this method a list of sensors can be selected based on a set of conditions. Supported operators are “equal”, “in”, and “is_set”. All string comparisons are case INsensitive. Currently supported are two types of statement groups. The first is "metatag_statement_groups" which allows to find sensors based on their metatags. The second is "sensor_statement_groups" which allows to find sensors based on their own properties. Supported properties are id, name, type, device_type, data_type_id, pager_type, display_name and use_data_storage.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>group_id The group identifier </td></tr>
+    <tr><td class="paramname">array</td><td>filter {"filter":{"metatag_statement_groups":[[{"metatag_name":"greenhouse_number","operator":"equal","value":"1"},{"metatag_name":"greenhouse_number","operator":"equal","value":"2"}],[{"metatag_name":"color","operator":"equal","value":"green"}]],"sensor_statement_groups":[[{"sensor_property":"id","operator":"in","value":"1,2,3,4,5,6,7,8,9,10"}]]}} The filter array </td></tr>
+    <tr><td class="paramname">string</td><td>details (optional) To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used. </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Find metatags within the given namespace. If not given “default” is assumed as the namepace. </td></tr>
+    <tr><td class="paramname">string</td><td>sensor_owner (optional) “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed </td></tr>
+    <tr><td class="paramname">int</td><td>page (optional) This parameter specifies which page of the results must be retrieved. The page offset starts at 0. </td></tr>
+    <tr><td class="paramname">int</td><td>per_page (optional) This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="afbe6765eb4421c2bc73870d86f67b14d"></a><!-- doxytag: member="Api::findSensorsByTagsInGroup" ref="afbe6765eb4421c2bc73870d86f67b14d" args="($group_id, $filter, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=&#45;1, $per_page=&#45;1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#afbe6765eb4421c2bc73870d86f67b14d">Api::findSensorsByTagsInGroup</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>group_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>filter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>details</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>sensor_owner</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>page</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>per_page</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Finding sensors by metatags</p>
+<p>Via this method a list of sensors can be selected based on a set of conditions. Supported operators are “equal”, “in”, and “is_set”. All string comparisons are case INsensitive. Currently supported are two types of statement groups. The first is "metatag_statement_groups" which allows to find sensors based on their metatags. The second is "sensor_statement_groups" which allows to find sensors based on their own properties. Supported properties are id, name, type, device_type, data_type_id, pager_type, display_name and use_data_storage.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>group_id The group identifier </td></tr>
+    <tr><td class="paramname">array</td><td>filter {"filter":{"metatag_statement_groups":[[{"metatag_name":"greenhouse_number","operator":"equal","value":"1"},{"metatag_name":"greenhouse_number","operator":"equal","value":"2"}],[{"metatag_name":"color","operator":"equal","value":"green"}]],"sensor_statement_groups":[[{"sensor_property":"id","operator":"in","value":"1,2,3,4,5,6,7,8,9,10"}]]}} The filter array </td></tr>
+    <tr><td class="paramname">string</td><td>details (optional) To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used. </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Find metatags within the given namespace. If not given “default” is assumed as the namepace. </td></tr>
+    <tr><td class="paramname">string</td><td>sensor_owner (optional) “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed </td></tr>
+    <tr><td class="paramname">int</td><td>page (optional) This parameter specifies which page of the results must be retrieved. The page offset starts at 0. </td></tr>
+    <tr><td class="paramname">int</td><td>per_page (optional) This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1425,6 +1696,128 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae0d2fbe867ce63d842060a14c893909b"></a><!-- doxytag: member="Api::listGroupSensorTags" ref="ae0d2fbe867ce63d842060a14c893909b" args="($group_id, $details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=&#45;1, $per_page=&#45;1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#ae0d2fbe867ce63d842060a14c893909b">Api::listGroupSensorTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>group_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>details</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>sensor_owner</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>page</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>per_page</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>List sensor tags within a group</p>
+<p>This method will return a list of sensors with their metatags in the given group.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>details To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used. </td></tr>
+    <tr><td class="paramname">string</td><td>namespace Find metatags within the given namespace. If not given “default” is assumed as the namepace. </td></tr>
+    <tr><td class="paramname">string</td><td>sensor_owner “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed </td></tr>
+    <tr><td class="paramname">int</td><td>page This parameter specifies which page of the results must be retrieved. The page offset starts at 0. </td></tr>
+    <tr><td class="paramname">int</td><td>per_page This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1b87af8ec3d46c64c24d4a85623c5fea"></a><!-- doxytag: member="Api::listMetaTags" ref="a1b87af8ec3d46c64c24d4a85623c5fea" args="($details=NULL, $namespace=NULL, $sensor_owner=NULL, $page=&#45;1, $per_page=&#45;1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#a1b87af8ec3d46c64c24d4a85623c5fea">Api::listMetaTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>details</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>sensor_owner</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>page</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>per_page</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>This method will return a list of sensors with their metatags.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>details To get all the related data as name, display_name, type, device_type, data_typ_id, pager_type, data_type and data_structure the parameter details=full can be used. If only a list of sensor id's is needed then details=no can be used. </td></tr>
+    <tr><td class="paramname">string</td><td>namespace Find metatags within the given namespace. If not given “default” is assumed as the namepace. </td></tr>
+    <tr><td class="paramname">string</td><td>sensor_owner “me” only return metatags of sensors owned by the current user. “shared” only return sensors shared with me. "all” return all sensors owned by me or shared with me. When not given “me” is assumed </td></tr>
+    <tr><td class="paramname">int</td><td>page This parameter specifies which page of the results must be retrieved. The page offset starts at 0. </td></tr>
+    <tr><td class="paramname">int</td><td>per_page This parameter specifies the amount of sensors that must be received at once. The maximum amount is 1000 items and the default amount is 100 items. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>mixed A sensor array with an array of metatags which consists of a key and an array of strings and/or integers </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a9529bcea90474dd1d4f766c120863d25"></a><!-- doxytag: member="Api::listNotifications" ref="a9529bcea90474dd1d4f766c120863d25" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -1569,12 +1962,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9a0f4b42604737ec4353e2f7815d6dc5"></a><!-- doxytag: member="Api::listSensors" ref="a9a0f4b42604737ec4353e2f7815d6dc5" args="($page, $perPage, $sharred, $owned, $physical)" -->
+<a class="anchor" id="a1c37cfb7ddf5b3f5e42ea5bdfdd96c0c"></a><!-- doxytag: member="Api::listSensors" ref="a1c37cfb7ddf5b3f5e42ea5bdfdd96c0c" args="($page, $perPage, $shared, $owned, $physical, $group_id=&#45;1)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_api.html#a9a0f4b42604737ec4353e2f7815d6dc5">Api::listSensors</a> </td>
+          <td class="memname"><a class="el" href="class_api.html#a1c37cfb7ddf5b3f5e42ea5bdfdd96c0c">Api::listSensors</a> </td>
           <td>(</td>
           <td class="paramtype">$&#160;</td>
           <td class="paramname"><em>page</em>, </td>
@@ -1589,7 +1982,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>sharred</em>, </td>
+          <td class="paramname"><em>shared</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1601,7 +1994,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>physical</em>&#160;</td>
+          <td class="paramname"><em>physical</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>group_id</em> = <code>-1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1617,7 +2016,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">int</td><td>page </td></tr>
     <tr><td class="paramname">int</td><td>perPage </td></tr>
-    <tr><td class="paramname">Boolean</td><td>sharred </td></tr>
+    <tr><td class="paramname">Boolean</td><td>shared </td></tr>
     <tr><td class="paramname">Boolean</td><td>owned </td></tr>
     <tr><td class="paramname">Boolean</td><td>physical </td></tr>
     <tr><td class="paramname">Boolean</td><td>details </td></tr>
@@ -1625,6 +2024,44 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a61c86dee07c040ef5ae74639af0ce765"></a><!-- doxytag: member="Api::listSensorTags" ref="a61c86dee07c040ef5ae74639af0ce765" args="($sensor_id, $namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#a61c86dee07c040ef5ae74639af0ce765">Api::listSensorTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>sensor_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>List sensor tags</p>
+<p>This method will return a list of metatags attached to the given sensor.</p>
+<p>public * </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>sensor_id The sensor identifier </td></tr>
+    <tr><td class="paramname">string</td><td>namespace Find metatags attached to given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>mixed An array of metatags which consists of a key and an array of strings and/or integers </dd></dl>
 
 </div>
 </div>
@@ -2218,6 +2655,50 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad89c474088f7d897d3d7d730acee4b8f"></a><!-- doxytag: member="Api::replaceSensorTags" ref="ad89c474088f7d897d3d7d730acee4b8f" args="($sensor_id, $metatags, $namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#ad89c474088f7d897d3d7d730acee4b8f">Api::replaceSensorTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>sensor_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>metatags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Replacing sensor tags</p>
+<p>This method will persist a list of metatags to the given sensor. All metatags that are not mentioned in the uploaded list are removed from the sensor. Metatag names can have a maximum length of 32 (ASCII) characters. The metatag value can have a maximum length of 100 (UTF-8) characters. For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. Currently this is set on 30.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>sensor_id The sensor identifier </td></tr>
+    <tr><td class="paramname">array</td><td>metatags an array with the metatags </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a15db85fc44e56c87368b209d1f9bb2b5"></a><!-- doxytag: member="Api::runServiceGetMethod" ref="a15db85fc44e56c87368b209d1f9bb2b5" args="($sensorID, $serviceID, $method)" -->
 <div class="memitem">
 <div class="memproto">
@@ -2567,6 +3048,50 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a4e4468863f73d6b983a6710c27179dba"></a><!-- doxytag: member="Api::updateSensorTags" ref="a4e4468863f73d6b983a6710c27179dba" args="($sensor_id, $metatags, $namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_api.html#a4e4468863f73d6b983a6710c27179dba">Api::updateSensorTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>sensor_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>metatags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Modifying sensor tags</p>
+<p>This method will persist a list of metatags. Existing metatags not mentioned in the uploaded list will be kept. Metatag names can have a maximum length of 32 (ASCII) characters. The metatag value can have a maximum length of 100 (UTF-8) characters. For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. Currently this is set on 30. For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. Currently this is set on 30.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int</td><td>sensor_id The sensor identifier </td></tr>
+    <tr><td class="paramname">array</td><td>metatags an array with the metatags </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a703de93b410db6278ccdec2bf8452658"></a><!-- doxytag: member="Api::updateSensorTrigger" ref="a703de93b410db6278ccdec2bf8452658" args="($sensor_id, $trigger_id, $active=0, $last_sensor_data_value=&quot;&quot;, $last_sensor_data_date=0)" -->
 <div class="memitem">
 <div class="memproto">
@@ -2780,7 +3305,7 @@ Public Member Functions</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="class_api.html">Api</a>      </li>
 
-    <li class="footer">Generated on Mon Sep 24 2012 15:12:15 for CommonSense PHP API Library by
+    <li class="footer">Generated on Fri Feb 15 2013 11:02:18 for CommonSense PHP API Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

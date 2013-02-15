@@ -95,6 +95,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#a61cf8f4eeeba72ce4d76ffbd79057e3a">Sensor</a> (stdClass $data, <a class="el" href="class_api.html">Api</a> $api)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#aa961f8e6563dec8d4277a0356df8f622">getID</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#aee2c2c9cbdf05da0625ebe5da19f11fb">getOwner</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#ad1fc5a2d89333a18ce46a4163c083a3e">getName</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#af3c093874d40a896682e59ba25515677">getDeviceType</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#a2cff554b41dafb0be8aaaeede1431841">update</a> ($name, $displayName, $deviceType, $pagerType, $dataType, $dataStructure)</td></tr>
@@ -111,6 +112,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#ac5e480dbaf748c30117591af8b9f0484">connectSensor</a> ($connectedSensorID)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#acc669324aa133fed47de73b37f7b1d01">removeConnectedSensor</a> ($connectedSensor)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#ad14ae9bb9830dac88c35632aa6a62b75">disconnectFromService</a> ($serviceID)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#a5df12a66a9bbff825fbb3a528cf9f47b">getMetatags</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#a492615b21da6e0b77e20b5b2fb62bdbf">listTags</a> ($namespace=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#acbc9d5ffae3e54e2bc28b850090734b0">replaceTags</a> ($metatags, $namespace=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#a7336a2e2d307943fd56dc20d7955b041">updateTags</a> ($metatags, $namespace=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sensor.html#a5ba38bddf9c0ff76e6475564856db045">deleteTags</a> ($namespace=NULL)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>sense dashboard - <a class="el" href="_sensor_8php.html">Sensor.php</a></p>
@@ -224,6 +230,33 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5ba38bddf9c0ff76e6475564856db045"></a><!-- doxytag: member="Sensor::deleteTags" ref="a5ba38bddf9c0ff76e6475564856db045" args="($namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sensor.html#a5ba38bddf9c0ff76e6475564856db045">Sensor::deleteTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Delete sensor tags</p>
+<p>This method will delete all the metatags for the given sensor in the given namespace</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>metatags an array with the metatags </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -412,6 +445,25 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5df12a66a9bbff825fbb3a528cf9f47b"></a><!-- doxytag: member="Sensor::getMetatags" ref="a5df12a66a9bbff825fbb3a528cf9f47b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sensor.html#a5df12a66a9bbff825fbb3a528cf9f47b">Sensor::getMetatags</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return metatags</p>
+<p>public </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array An array with the metatags </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ac8d97efcd76491c068306dc70124db68"></a><!-- doxytag: member="Sensor::getMyDevice" ref="ac8d97efcd76491c068306dc70124db68" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -444,6 +496,43 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aee2c2c9cbdf05da0625ebe5da19f11fb"></a><!-- doxytag: member="Sensor::getOwner" ref="aee2c2c9cbdf05da0625ebe5da19f11fb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sensor.html#aee2c2c9cbdf05da0625ebe5da19f11fb">Sensor::getOwner</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a492615b21da6e0b77e20b5b2fb62bdbf"></a><!-- doxytag: member="Sensor::listTags" ref="a492615b21da6e0b77e20b5b2fb62bdbf" args="($namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sensor.html#a492615b21da6e0b77e20b5b2fb62bdbf">Sensor::listTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>List sensor tags</p>
+<p>This method will return a list of metatags attached to the given sensor.</p>
+<p>public </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>mixed An array of metatags which consists of a key and an array of strings and/or integers </dd></dl>
 
 </div>
 </div>
@@ -496,6 +585,43 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acbc9d5ffae3e54e2bc28b850090734b0"></a><!-- doxytag: member="Sensor::replaceTags" ref="acbc9d5ffae3e54e2bc28b850090734b0" args="($metatags, $namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sensor.html#acbc9d5ffae3e54e2bc28b850090734b0">Sensor::replaceTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>metatags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Replacing sensor tags</p>
+<p>This method will persist a list of metatags to the given sensor. All metatags that are not mentioned in the uploaded list are removed from the sensor. Metatag names can have a maximum length of 32 (ASCII) characters. The metatag value can have a maximum length of 100 (UTF-8) characters. For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. Currently this is set on 30.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>metatags an array with the metatags </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -628,6 +754,43 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a7336a2e2d307943fd56dc20d7955b041"></a><!-- doxytag: member="Sensor::updateTags" ref="a7336a2e2d307943fd56dc20d7955b041" args="($metatags, $namespace=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_sensor.html#a7336a2e2d307943fd56dc20d7955b041">Sensor::updateTags</a> </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>metatags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>namespace</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Modifying sensor tags</p>
+<p>This method will persist a list of metatags. Existing metatags not mentioned in the uploaded list will be kept. Metatag names can have a maximum length of 32 (ASCII) characters. The metatag value can have a maximum length of 100 (UTF-8) characters. For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. Currently this is set on 30. For now we impose a limit on the amount of metatags attached to a sensor in a single namespace. Currently this is set on 30.</p>
+<p>public </p>
+<dl class="params"><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>metatags an array with the metatags </td></tr>
+    <tr><td class="paramname">string</td><td>namespace (optional) Attach metatags to the given namespace. If not given “default” is assumed as the namespace. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="aaff1f8363e01ce9763da214d639ca342"></a><!-- doxytag: member="Sensor::uploadDataAsJson" ref="aaff1f8363e01ce9763da214d639ca342" args="($json)" -->
 <div class="memitem">
 <div class="memproto">
@@ -677,7 +840,7 @@ Public Member Functions</h2></td></tr>
     <ul>
       <li class="navelem"><a class="el" href="class_sensor.html">Sensor</a>      </li>
 
-    <li class="footer">Generated on Mon Sep 24 2012 15:12:15 for CommonSense PHP API Library by
+    <li class="footer">Generated on Fri Feb 15 2013 11:02:18 for CommonSense PHP API Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>
